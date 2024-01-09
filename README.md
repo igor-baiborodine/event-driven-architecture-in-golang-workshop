@@ -1,5 +1,9 @@
+# event-driven-architecture-in-golang-workshop
 
-
+This workshop covers material from
+the ["Event-Driven Architecture in Golang: Building complex systems with asynchronicity and eventual consistency"](https://www.amazon.ca/dp/1803238011/)
+book. It contains the same source code as in the original [repository](https://github.com/PacktPublishing/Event-Driven-Architecture-in-Golang)
+but is updated and executed against the latest versions of dependent Go packages.
 
 # Event-Driven Architecture in Golang
 
@@ -63,4 +67,4 @@ is a solutions architect with more than 20 years experience developing software.
 ### Download a free PDF
 
  <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
-<p align="center"> <a href="https://packt.link/free-ebook/9781803238012">https://packt.link/free-ebook/9781803238012 </a> </p>
+<p> <a href="https://packt.link/free-ebook/9781803238012">https://packt.link/free-ebook/9781803238012 </a> </p>
