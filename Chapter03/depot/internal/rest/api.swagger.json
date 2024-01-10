@@ -80,7 +80,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object"
+              "$ref": "#/definitions/DepotServiceCancelShoppingListBody"
             }
           }
         ],
@@ -119,12 +119,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "botId": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/DepotServiceAssignShoppingListBody"
             }
           }
         ],
@@ -163,7 +158,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object"
+              "$ref": "#/definitions/DepotServiceCompleteShoppingListBody"
             }
           }
         ],
@@ -174,6 +169,20 @@
     }
   },
   "definitions": {
+    "DepotServiceAssignShoppingListBody": {
+      "type": "object",
+      "properties": {
+        "botId": {
+          "type": "string"
+        }
+      }
+    },
+    "DepotServiceCancelShoppingListBody": {
+      "type": "object"
+    },
+    "DepotServiceCompleteShoppingListBody": {
+      "type": "object"
+    },
     "depotpbAssignShoppingListResponse": {
       "type": "object"
     },
@@ -192,6 +201,7 @@
         "items": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/depotpbOrderItem"
           }
         }
@@ -242,6 +252,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }

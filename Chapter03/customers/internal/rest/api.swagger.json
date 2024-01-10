@@ -111,7 +111,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object"
+              "$ref": "#/definitions/CustomersServiceDisableCustomerBody"
             }
           }
         ],
@@ -150,7 +150,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object"
+              "$ref": "#/definitions/CustomersServiceEnableCustomerBody"
             }
           }
         ],
@@ -161,6 +161,12 @@
     }
   },
   "definitions": {
+    "CustomersServiceDisableCustomerBody": {
+      "type": "object"
+    },
+    "CustomersServiceEnableCustomerBody": {
+      "type": "object"
+    },
     "customerspbAuthorizeCustomerResponse": {
       "type": "object"
     },
@@ -236,6 +242,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
