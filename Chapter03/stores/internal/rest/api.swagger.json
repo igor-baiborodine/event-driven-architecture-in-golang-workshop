@@ -244,7 +244,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object"
+              "$ref": "#/definitions/StoresServiceEnableParticipationBody"
             }
           }
         ],
@@ -312,22 +312,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "description": {
-                  "type": "string"
-                },
-                "sku": {
-                  "type": "string"
-                },
-                "price": {
-                  "type": "number",
-                  "format": "double"
-                }
-              }
+              "$ref": "#/definitions/StoresServiceAddProductBody"
             }
           }
         ],
@@ -338,6 +323,27 @@
     }
   },
   "definitions": {
+    "StoresServiceAddProductBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "sku": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "StoresServiceEnableParticipationBody": {
+      "type": "object"
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -360,6 +366,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -404,6 +411,7 @@
         "products": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/storespbProduct"
           }
         }
@@ -415,6 +423,7 @@
         "stores": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/storespbStore"
           }
         }
@@ -442,6 +451,7 @@
         "stores": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/storespbStore"
           }
         }
