@@ -18,6 +18,8 @@ func NewGetShoppingListHandler(shoppingLists domain.ShoppingListRepository) GetS
 	return GetShoppingListHandler{shoppingLists: shoppingLists}
 }
 
-func (h GetShoppingListHandler) GetShoppingList(ctx context.Context, query GetShoppingList) (*domain.ShoppingList, error) {
+func (h GetShoppingListHandler) GetShoppingList(ctx context.Context, query GetShoppingList) (*domain.ShoppingList,
+	error,
+) {
 	return h.shoppingLists.Find(ctx, query.ID)
 }

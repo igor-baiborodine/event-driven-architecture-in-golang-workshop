@@ -3,9 +3,8 @@ package application
 import (
 	"context"
 
-	"github.com/stackus/errors"
-
 	"eda-in-golang/customers/internal/domain"
+	"eda-in-golang/internal/ddd"
 )
 
 type (
@@ -40,15 +39,17 @@ type (
 	}
 
 	Application struct {
-		customers domain.CustomerRepository
+		customers       domain.CustomerRepository
+		domainPublisher ddd.EventPublisher
 	}
 )
 
 var _ App = (*Application)(nil)
 
-func New(customers domain.CustomerRepository) *Application {
+func New(customers domain.CustomerRepository, domainPublisher ddd.EventPublisher) *Application {
 	return &Application{
-		customers: customers,
+		customers:       customers,
+		domainPublisher: domainPublisher,
 	}
 }
 
@@ -58,7 +59,16 @@ func (a Application) RegisterCustomer(ctx context.Context, register RegisterCust
 		return err
 	}
 
-	return a.customers.Save(ctx, customer)
+	if err = a.customers.Save(ctx, customer); err != nil {
+		return err
+	}
+
+	// publish domain events
+	if err = a.domainPublisher.Publish(ctx, customer.GetEvents()...); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (a Application) AuthorizeCustomer(ctx context.Context, authorize AuthorizeCustomer) error {
@@ -67,15 +77,16 @@ func (a Application) AuthorizeCustomer(ctx context.Context, authorize AuthorizeC
 		return err
 	}
 
-	if !customer.Enabled {
-		return errors.Wrap(errors.ErrUnauthorized, "customer is not authorized")
+	if err = customer.Authorize(); err != nil {
+		return err
+	}
+
+	// publish domain events
+	if err = a.domainPublisher.Publish(ctx, customer.GetEvents()...); err != nil {
+		return err
 	}
 
 	return nil
-}
-
-func (a Application) GetCustomer(ctx context.Context, get GetCustomer) (*domain.Customer, error) {
-	return a.customers.Find(ctx, get.ID)
 }
 
 func (a Application) EnableCustomer(ctx context.Context, enable EnableCustomer) error {
@@ -84,12 +95,20 @@ func (a Application) EnableCustomer(ctx context.Context, enable EnableCustomer) 
 		return err
 	}
 
-	err = customer.Enable()
-	if err != nil {
+	if err = customer.Enable(); err != nil {
 		return err
 	}
 
-	return a.customers.Update(ctx, customer)
+	if err = a.customers.Update(ctx, customer); err != nil {
+		return err
+	}
+
+	// publish domain events
+	if err = a.domainPublisher.Publish(ctx, customer.GetEvents()...); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (a Application) DisableCustomer(ctx context.Context, disable DisableCustomer) error {
@@ -98,10 +117,22 @@ func (a Application) DisableCustomer(ctx context.Context, disable DisableCustome
 		return err
 	}
 
-	err = customer.Disable()
-	if err != nil {
+	if err = customer.Disable(); err != nil {
 		return err
 	}
 
-	return a.customers.Update(ctx, customer)
+	if err = a.customers.Update(ctx, customer); err != nil {
+		return err
+	}
+
+	// publish domain events
+	if err = a.domainPublisher.Publish(ctx, customer.GetEvents()...); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (a Application) GetCustomer(ctx context.Context, get GetCustomer) (*domain.Customer, error) {
+	return a.customers.Find(ctx, get.ID)
 }

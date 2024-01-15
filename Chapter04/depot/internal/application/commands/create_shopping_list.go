@@ -6,6 +6,7 @@ import (
 	"github.com/stackus/errors"
 
 	"eda-in-golang/depot/internal/domain"
+	"eda-in-golang/internal/ddd"
 )
 
 type CreateShoppingList struct {
@@ -15,16 +16,18 @@ type CreateShoppingList struct {
 }
 
 type CreateShoppingListHandler struct {
-	shoppingLists domain.ShoppingListRepository
-	stores        domain.StoreRepository
-	products      domain.ProductRepository
+	shoppingLists   domain.ShoppingListRepository
+	stores          domain.StoreRepository
+	products        domain.ProductRepository
+	domainPublisher ddd.EventPublisher
 }
 
-func NewCreateShoppingListHandler(shoppingLists domain.ShoppingListRepository, stores domain.StoreRepository, products domain.ProductRepository) CreateShoppingListHandler {
+func NewCreateShoppingListHandler(shoppingLists domain.ShoppingListRepository, stores domain.StoreRepository, products domain.ProductRepository, domainPublisher ddd.EventPublisher) CreateShoppingListHandler {
 	return CreateShoppingListHandler{
-		shoppingLists: shoppingLists,
-		stores:        stores,
-		products:      products,
+		shoppingLists:   shoppingLists,
+		stores:          stores,
+		products:        products,
+		domainPublisher: domainPublisher,
 	}
 }
 
@@ -47,5 +50,14 @@ func (h CreateShoppingListHandler) CreateShoppingList(ctx context.Context, cmd C
 		}
 	}
 
-	return errors.Wrap(h.shoppingLists.Save(ctx, list), "scheduling shopping")
+	if err := h.shoppingLists.Save(ctx, list); err != nil {
+		return errors.Wrap(err, "scheduling shopping")
+	}
+
+	// publish domain events
+	if err := h.domainPublisher.Publish(ctx, list.GetEvents()...); err != nil {
+		return err
+	}
+
+	return nil
 }

@@ -1,4 +1,4 @@
-FROM golang:1.21-alpine AS builder
+FROM golang:1.17-alpine AS builder
 
 WORKDIR /mallbots
 
@@ -9,7 +9,7 @@ COPY go.* ./
 RUN go mod download
 
 # Copy local code to the container image.
-COPY .. ./
+COPY . ./
 
 # Build the binary.
 RUN go build -v -o monolith ./cmd/mallbots

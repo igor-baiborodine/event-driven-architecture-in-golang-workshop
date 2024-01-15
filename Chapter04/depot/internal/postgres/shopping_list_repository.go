@@ -9,6 +9,7 @@ import (
 	"github.com/stackus/errors"
 
 	"eda-in-golang/depot/internal/domain"
+	"eda-in-golang/internal/ddd"
 )
 
 type ShoppingListRepository struct {
@@ -29,7 +30,9 @@ func (r ShoppingListRepository) Find(ctx context.Context, id string) (*domain.Sh
 	const query = "SELECT order_id, stops, assigned_bot_id, status FROM %s WHERE id = $1 LIMIT 1"
 
 	shoppingList := &domain.ShoppingList{
-		ID: id,
+		AggregateBase: ddd.AggregateBase{
+			ID: id,
+		},
 	}
 	var stops []byte
 	var status string

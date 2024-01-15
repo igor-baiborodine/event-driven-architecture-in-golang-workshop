@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"eda-in-golang/depot/internal/domain"
+	"eda-in-golang/internal/ddd"
 )
 
 type AssignShoppingList struct {
@@ -12,11 +13,15 @@ type AssignShoppingList struct {
 }
 
 type AssignShoppingListHandler struct {
-	shoppingLists domain.ShoppingListRepository
+	shoppingLists   domain.ShoppingListRepository
+	domainPublisher ddd.EventPublisher
 }
 
-func NewAssignShoppingListHandler(shoppingList domain.ShoppingListRepository) AssignShoppingListHandler {
-	return AssignShoppingListHandler{shoppingLists: shoppingList}
+func NewAssignShoppingListHandler(shoppingList domain.ShoppingListRepository, domainPublisher ddd.EventPublisher) AssignShoppingListHandler {
+	return AssignShoppingListHandler{
+		shoppingLists:   shoppingList,
+		domainPublisher: domainPublisher,
+	}
 }
 
 func (h AssignShoppingListHandler) AssignShoppingList(ctx context.Context, cmd AssignShoppingList) error {
@@ -30,5 +35,14 @@ func (h AssignShoppingListHandler) AssignShoppingList(ctx context.Context, cmd A
 		return err
 	}
 
-	return h.shoppingLists.Update(ctx, list)
+	if err = h.shoppingLists.Update(ctx, list); err != nil {
+		return err
+	}
+
+	// publish domain events
+	if err = h.domainPublisher.Publish(ctx, list.GetEvents()...); err != nil {
+		return err
+	}
+
+	return nil
 }
