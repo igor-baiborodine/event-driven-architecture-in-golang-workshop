@@ -1,7 +1,24 @@
-
-
-
 # Event-Driven Architecture in Golang
+
+This workshop covers material from
+the ["Event-Driven Architecture in Golang: Building complex systems with asynchronicity and eventual consistency"](https://www.amazon.ca/dp/1803238011/)
+book. It contains the same source code as in the original [repository](https://github.com/PacktPublishing/Event-Driven-Architecture-in-Golang)
+but is updated and executed against the latest versions of dependent Go packages.
+
+**Table of Contents**
+
+- [X] 1.Introduction to Event-driven Architectures 
+- [ ] 2.Supporting Patterns in Brief
+- [ ] 3.Design and Planning
+- [ ] 4.Event Foundations
+- [ ] 5.Tracking Changes with Event Sourcing
+- [ ] 6.Asynchronous Connections
+- [ ] 7.Event-Carried State Transfer
+- [ ] 8.Message Workflows
+- [ ] 9.Transactional Messaging
+- [ ] 10.Testing
+- [ ] 11.Deploying Applications to the Cloud
+- [ ] 12.Monitoring and Observability
 
 <a href="https://www.packtpub.com/product/event-driven-architecture-in-golang/9781803238012?utm_source=github&utm_medium=repository&utm_campaign=9781803238012"><img src="https://static.packt-cdn.com/products/9781803238012/cover/smaller" alt="" height="256px" align="right"></a>
 
