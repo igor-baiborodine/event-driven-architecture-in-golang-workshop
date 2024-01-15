@@ -8,7 +8,7 @@ but is updated and executed against the latest versions of dependent Go packages
 **Table of Contents**
 
 - [X] 1.Introduction to Event-driven Architectures 
-- [ ] 2.Supporting Patterns in Brief
+- [X] 2.[Supporting Patterns in Brief](/Chapter02)
 - [ ] 3.Design and Planning
 - [ ] 4.Event Foundations
 - [ ] 5.Tracking Changes with Event Sourcing
