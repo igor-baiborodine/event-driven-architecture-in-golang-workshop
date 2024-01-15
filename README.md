@@ -10,7 +10,7 @@ but is updated and executed against the latest versions of dependent Go packages
 - [X] 1.Introduction to Event-driven Architectures 
 - [X] 2.[Supporting Patterns in Brief](/Chapter02)
 - [X] 3.[Design and Planning](/Chapter03) ([`65ef92b`](https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/commit/65ef92b7b499bea5b42768376b1b9dbddb890593))
-- [X] 4.[Event Foundations](/Chapter04)
+- [X] 4.[Event Foundations](/Chapter04) ([`4d10b32`](https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/commit/4d10b320c4fedaf0fef6be0709b6c70eb6b2c357))
 - [ ] 5.Tracking Changes with Event Sourcing
 - [ ] 6.Asynchronous Connections
 - [ ] 7.Event-Carried State Transfer
