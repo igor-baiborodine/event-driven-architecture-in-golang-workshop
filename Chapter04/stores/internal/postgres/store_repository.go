@@ -7,6 +7,7 @@ import (
 
 	"github.com/stackus/errors"
 
+	"eda-in-golang/internal/ddd"
 	"eda-in-golang/stores/internal/domain"
 )
 
@@ -25,7 +26,9 @@ func (r StoreRepository) Find(ctx context.Context, storeID string) (*domain.Stor
 	const query = "SELECT name, location, participating FROM %s WHERE id = $1 LIMIT 1"
 
 	store := &domain.Store{
-		ID: storeID,
+		AggregateBase: ddd.AggregateBase{
+			ID: storeID,
+		},
 	}
 
 	err := r.db.QueryRowContext(ctx, r.table(query), storeID).Scan(&store.Name, &store.Location, &store.Participating)

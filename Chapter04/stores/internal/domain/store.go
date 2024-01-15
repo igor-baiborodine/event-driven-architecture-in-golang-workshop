@@ -2,6 +2,8 @@ package domain
 
 import (
 	"github.com/stackus/errors"
+
+	"eda-in-golang/internal/ddd"
 )
 
 var (
@@ -12,7 +14,7 @@ var (
 )
 
 type Store struct {
-	ID            string
+	ddd.AggregateBase
 	Name          string
 	Location      string
 	Participating bool
@@ -28,10 +30,16 @@ func CreateStore(id, name, location string) (store *Store, err error) {
 	}
 
 	store = &Store{
-		ID:       id,
+		AggregateBase: ddd.AggregateBase{
+			ID: id,
+		},
 		Name:     name,
 		Location: location,
 	}
+
+	store.AddEvent(&StoreCreated{
+		Store: store,
+	})
 
 	return
 }
@@ -43,6 +51,10 @@ func (s *Store) EnableParticipation() (err error) {
 
 	s.Participating = true
 
+	s.AddEvent(&StoreParticipationEnabled{
+		Store: s,
+	})
+
 	return
 }
 
@@ -52,6 +64,10 @@ func (s *Store) DisableParticipation() (err error) {
 	}
 
 	s.Participating = false
+
+	s.AddEvent(&StoreParticipationDisabled{
+		Store: s,
+	})
 
 	return
 }

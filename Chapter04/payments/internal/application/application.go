@@ -57,7 +57,8 @@ type (
 
 var _ App = (*Application)(nil)
 
-func New(invoices InvoiceRepository, payments PaymentRepository, orders OrderRepository) *Application {
+func New(invoices InvoiceRepository, payments PaymentRepository, orders OrderRepository,
+) *Application {
 	return &Application{
 		invoices: invoices,
 		payments: payments,

@@ -9,6 +9,7 @@ import (
 	"github.com/stackus/errors"
 
 	"eda-in-golang/baskets/internal/domain"
+	"eda-in-golang/internal/ddd"
 )
 
 type BasketRepository struct {
@@ -26,7 +27,9 @@ func (r BasketRepository) Find(ctx context.Context, basketID string) (*domain.Ba
 	const query = "SELECT customer_id, payment_id, items, status FROM %s WHERE id = $1 LIMIT 1"
 
 	basket := &domain.Basket{
-		ID: basketID,
+		AggregateBase: ddd.AggregateBase{
+			ID: basketID,
+		},
 	}
 	var items []byte
 	var status string
@@ -36,10 +39,7 @@ func (r BasketRepository) Find(ctx context.Context, basketID string) (*domain.Ba
 		return nil, errors.ErrInternalServerError.Err(err)
 	}
 
-	basket.Status, err = r.statusToDomain(status)
-	if err != nil {
-		return nil, errors.ErrInternalServerError.Err(err)
-	}
+	basket.Status = domain.ToBasketStatus(status)
 
 	err = json.Unmarshal(items, &basket.Items)
 	if err != nil {
@@ -85,17 +85,4 @@ func (r BasketRepository) DeleteBasket(ctx context.Context, basketID string) err
 
 func (r BasketRepository) table(query string) string {
 	return fmt.Sprintf(query, r.tableName)
-}
-
-func (r BasketRepository) statusToDomain(status string) (domain.BasketStatus, error) {
-	switch status {
-	case domain.BasketOpen.String():
-		return domain.BasketOpen, nil
-	case domain.BasketCancelled.String():
-		return domain.BasketCancelled, nil
-	case domain.BasketCheckedOut.String():
-		return domain.BasketCheckedOut, nil
-	default:
-		return domain.BasketUnknown, fmt.Errorf("unknown basket status: %s", status)
-	}
 }
