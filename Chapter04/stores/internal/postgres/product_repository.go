@@ -7,6 +7,7 @@ import (
 
 	"github.com/stackus/errors"
 
+	"eda-in-golang/internal/ddd"
 	"eda-in-golang/stores/internal/domain"
 )
 
@@ -21,11 +22,11 @@ func NewProductRepository(tableName string, db *sql.DB) ProductRepository {
 	return ProductRepository{tableName: tableName, db: db}
 }
 
-func (r ProductRepository) FindProduct(ctx context.Context, id string) (*domain.Product, error) {
+func (r ProductRepository) Find(ctx context.Context, id string) (*domain.Product, error) {
 	const query = "SELECT store_id, name, description, sku, price FROM %s WHERE id = $1 LIMIT 1"
 
 	product := &domain.Product{
-		ID: id,
+		AggregateBase: ddd.AggregateBase{ID: id},
 	}
 
 	err := r.db.QueryRowContext(ctx, r.table(query), id).Scan(&product.StoreID, &product.Name, &product.Description, &product.SKU, &product.Price)
@@ -36,7 +37,7 @@ func (r ProductRepository) FindProduct(ctx context.Context, id string) (*domain.
 	return product, nil
 }
 
-func (r ProductRepository) AddProduct(ctx context.Context, product *domain.Product) error {
+func (r ProductRepository) Save(ctx context.Context, product *domain.Product) error {
 	const query = "INSERT INTO %s (id, store_id, name, description, sku, price) VALUES ($1, $2, $3, $4, $5, $6)"
 
 	_, err := r.db.ExecContext(ctx, r.table(query), product.ID, product.StoreID, product.Name, product.Description, product.SKU, product.Price)
@@ -44,7 +45,7 @@ func (r ProductRepository) AddProduct(ctx context.Context, product *domain.Produ
 	return errors.Wrap(err, "inserting product")
 }
 
-func (r ProductRepository) RemoveProduct(ctx context.Context, id string) error {
+func (r ProductRepository) Delete(ctx context.Context, id string) error {
 	const query = "DELETE FROM %s WHERE id = $1 LIMIT 1"
 
 	_, err := r.db.ExecContext(ctx, r.table(query), id)

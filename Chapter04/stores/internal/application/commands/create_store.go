@@ -3,6 +3,7 @@ package commands
 import (
 	"context"
 
+	"eda-in-golang/internal/ddd"
 	"eda-in-golang/stores/internal/domain"
 )
 
@@ -14,12 +15,16 @@ type (
 	}
 
 	CreateStoreHandler struct {
-		stores domain.StoreRepository
+		stores          domain.StoreRepository
+		domainPublisher ddd.EventPublisher
 	}
 )
 
-func NewCreateStoreHandler(stores domain.StoreRepository) CreateStoreHandler {
-	return CreateStoreHandler{stores: stores}
+func NewCreateStoreHandler(stores domain.StoreRepository, domainPublisher ddd.EventPublisher) CreateStoreHandler {
+	return CreateStoreHandler{
+		stores:          stores,
+		domainPublisher: domainPublisher,
+	}
 }
 
 func (h CreateStoreHandler) CreateStore(ctx context.Context, cmd CreateStore) error {
@@ -28,7 +33,13 @@ func (h CreateStoreHandler) CreateStore(ctx context.Context, cmd CreateStore) er
 		return err
 	}
 
-	err = h.stores.Save(ctx, store)
+	if err = h.stores.Save(ctx, store); err != nil {
+		return err
+	}
 
-	return err
+	if err = h.domainPublisher.Publish(ctx, store.GetEvents()...); err != nil {
+		return err
+	}
+
+	return nil
 }

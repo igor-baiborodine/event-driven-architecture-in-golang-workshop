@@ -19,5 +19,5 @@ func NewGetProductHandler(products domain.ProductRepository) GetProductHandler {
 }
 
 func (h GetProductHandler) GetProduct(ctx context.Context, query GetProduct) (*domain.Product, error) {
-	return h.products.FindProduct(ctx, query.ID)
+	return h.products.Find(ctx, query.ID)
 }

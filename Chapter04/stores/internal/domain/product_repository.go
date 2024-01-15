@@ -5,8 +5,8 @@ import (
 )
 
 type ProductRepository interface {
-	FindProduct(ctx context.Context, id string) (*Product, error)
-	AddProduct(ctx context.Context, product *Product) error
-	RemoveProduct(ctx context.Context, id string) error
+	Find(ctx context.Context, id string) (*Product, error)
+	Save(ctx context.Context, product *Product) error
+	Delete(ctx context.Context, id string) error
 	GetCatalog(ctx context.Context, storeID string) ([]*Product, error)
 }

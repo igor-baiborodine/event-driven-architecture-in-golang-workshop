@@ -66,7 +66,8 @@ func (s server) PayInvoice(ctx context.Context, request *paymentspb.PayInvoiceRe
 	return &paymentspb.PayInvoiceResponse{}, err
 }
 
-func (s server) CancelInvoice(ctx context.Context, request *paymentspb.CancelInvoiceRequest) (*paymentspb.CancelInvoiceResponse, error) {
+func (s server) CancelInvoice(ctx context.Context, request *paymentspb.CancelInvoiceRequest,
+) (*paymentspb.CancelInvoiceResponse, error) {
 	err := s.app.CancelInvoice(ctx, application.CancelInvoice{
 		ID: request.GetId(),
 	})

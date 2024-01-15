@@ -5,9 +5,11 @@ import (
 
 	"eda-in-golang/depot/internal/application"
 	"eda-in-golang/depot/internal/grpc"
+	"eda-in-golang/depot/internal/handlers"
 	"eda-in-golang/depot/internal/logging"
 	"eda-in-golang/depot/internal/postgres"
 	"eda-in-golang/depot/internal/rest"
+	"eda-in-golang/internal/ddd"
 	"eda-in-golang/internal/monolith"
 )
 
@@ -15,6 +17,7 @@ type Module struct{}
 
 func (Module) Startup(ctx context.Context, mono monolith.Monolith) error {
 	// setup Driven adapters
+	domainDispatcher := ddd.NewEventDispatcher()
 	shoppingLists := postgres.NewShoppingListRepository("depot.shopping_lists", mono.DB())
 	conn, err := grpc.Dial(ctx, mono.Config().Rpc.Address())
 	if err != nil {
@@ -25,9 +28,13 @@ func (Module) Startup(ctx context.Context, mono monolith.Monolith) error {
 	orders := grpc.NewOrderRepository(conn)
 
 	// setup application
-	var app application.App
-	app = application.New(shoppingLists, stores, products, orders)
-	app = logging.LogApplicationAccess(app, mono.Logger())
+	app := logging.LogApplicationAccess(application.New(shoppingLists, stores, products, domainDispatcher),
+		mono.Logger(),
+	)
+	orderHandlers := logging.LogDomainEventHandlerAccess(
+		application.NewOrderHandlers(orders),
+		mono.Logger(),
+	)
 
 	// setup Driver adapters
 	if err := grpc.Register(ctx, app, mono.RPC()); err != nil {
@@ -39,6 +46,7 @@ func (Module) Startup(ctx context.Context, mono monolith.Monolith) error {
 	if err := rest.RegisterSwagger(mono.Mux()); err != nil {
 		return err
 	}
+	handlers.RegisterOrderHandlers(orderHandlers, domainDispatcher)
 
 	return nil
 }

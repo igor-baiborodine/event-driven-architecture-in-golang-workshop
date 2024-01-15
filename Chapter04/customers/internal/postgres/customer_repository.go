@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"eda-in-golang/customers/internal/domain"
+	"eda-in-golang/internal/ddd"
 )
 
 type CustomerRepository struct {
@@ -34,7 +35,9 @@ func (r CustomerRepository) Find(ctx context.Context, customerID string) (*domai
 	const query = "SELECT name, sms_number, enabled FROM %s WHERE id = $1 LIMIT 1"
 
 	customer := &domain.Customer{
-		ID: customerID,
+		AggregateBase: ddd.AggregateBase{
+			ID: customerID,
+		},
 	}
 
 	err := r.db.QueryRowContext(ctx, r.table(query), customerID).Scan(&customer.Name, &customer.SmsNumber, &customer.Enabled)
