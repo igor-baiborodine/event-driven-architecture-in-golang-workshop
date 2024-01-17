@@ -5,6 +5,7 @@ import (
 	"database/sql"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/nats-io/nats.go"
 	"github.com/rs/zerolog"
 	"google.golang.org/grpc"
 
@@ -15,6 +16,7 @@ import (
 type Monolith interface {
 	Config() config.AppConfig
 	DB() *sql.DB
+	JS() nats.JetStreamContext
 	Logger() zerolog.Logger
 	Mux() *chi.Mux
 	RPC() *grpc.Server

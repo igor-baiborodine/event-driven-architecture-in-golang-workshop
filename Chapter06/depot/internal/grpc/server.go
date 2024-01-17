@@ -23,7 +23,8 @@ func Register(_ context.Context, app application.App, registrar grpc.ServiceRegi
 	return nil
 }
 
-func (s server) CreateShoppingList(ctx context.Context, request *depotpb.CreateShoppingListRequest) (*depotpb.CreateShoppingListResponse, error) {
+func (s server) CreateShoppingList(ctx context.Context, request *depotpb.CreateShoppingListRequest,
+) (*depotpb.CreateShoppingListResponse, error) {
 	id := uuid.New().String()
 
 	items := make([]commands.OrderItem, 0, len(request.GetItems()))
@@ -40,7 +41,8 @@ func (s server) CreateShoppingList(ctx context.Context, request *depotpb.CreateS
 	return &depotpb.CreateShoppingListResponse{Id: id}, err
 }
 
-func (s server) CancelShoppingList(ctx context.Context, request *depotpb.CancelShoppingListRequest) (*depotpb.CancelShoppingListResponse, error) {
+func (s server) CancelShoppingList(ctx context.Context, request *depotpb.CancelShoppingListRequest,
+) (*depotpb.CancelShoppingListResponse, error) {
 	err := s.app.CancelShoppingList(ctx, commands.CancelShoppingList{
 		ID: request.GetId(),
 	})
@@ -48,7 +50,8 @@ func (s server) CancelShoppingList(ctx context.Context, request *depotpb.CancelS
 	return &depotpb.CancelShoppingListResponse{}, err
 }
 
-func (s server) AssignShoppingList(ctx context.Context, request *depotpb.AssignShoppingListRequest) (*depotpb.AssignShoppingListResponse, error) {
+func (s server) AssignShoppingList(ctx context.Context, request *depotpb.AssignShoppingListRequest,
+) (*depotpb.AssignShoppingListResponse, error) {
 	err := s.app.AssignShoppingList(ctx, commands.AssignShoppingList{
 		ID:    request.GetId(),
 		BotID: request.GetBotId(),
@@ -56,7 +59,8 @@ func (s server) AssignShoppingList(ctx context.Context, request *depotpb.AssignS
 	return &depotpb.AssignShoppingListResponse{}, err
 }
 
-func (s server) CompleteShoppingList(ctx context.Context, request *depotpb.CompleteShoppingListRequest) (*depotpb.CompleteShoppingListResponse, error) {
+func (s server) CompleteShoppingList(ctx context.Context, request *depotpb.CompleteShoppingListRequest,
+) (*depotpb.CompleteShoppingListResponse, error) {
 	err := s.app.CompleteShoppingList(ctx, commands.CompleteShoppingList{ID: request.GetId()})
 	return &depotpb.CompleteShoppingListResponse{}, err
 }
