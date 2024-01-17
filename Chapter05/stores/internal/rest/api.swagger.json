@@ -154,6 +154,123 @@
         ]
       }
     },
+    "/api/stores/products/{id}/decreasePrice": {
+      "put": {
+        "summary": "Decrease the price of a product",
+        "operationId": "decreaseProductPrice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/storespbDecreaseProductPriceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StoresServiceDecreaseProductPriceBody"
+            }
+          }
+        ],
+        "tags": [
+          "Product"
+        ]
+      }
+    },
+    "/api/stores/products/{id}/increasePrice": {
+      "put": {
+        "summary": "Increase the price of a product",
+        "operationId": "increaseProductPrice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/storespbIncreaseProductPriceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StoresServiceIncreaseProductPriceBody"
+            }
+          }
+        ],
+        "tags": [
+          "Product"
+        ]
+      }
+    },
+    "/api/stores/products/{id}/rebrand": {
+      "put": {
+        "summary": "Change the name and description of a product",
+        "operationId": "rebrandProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/storespbRebrandProductResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StoresServiceRebrandProductBody"
+            }
+          }
+        ],
+        "tags": [
+          "Product"
+        ]
+      }
+    },
     "/api/stores/{id}": {
       "get": {
         "summary": "Get a store",
@@ -253,6 +370,44 @@
         ]
       }
     },
+    "/api/stores/{id}/rebrand": {
+      "put": {
+        "operationId": "rebrandStore",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/storespbRebrandStoreResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StoresServiceRebrandStoreBody"
+            }
+          }
+        ],
+        "tags": [
+          "Store"
+        ]
+      }
+    },
     "/api/stores/{storeId}/products": {
       "get": {
         "summary": "Get a list of store products",
@@ -341,8 +496,45 @@
         }
       }
     },
+    "StoresServiceDecreaseProductPriceBody": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
     "StoresServiceEnableParticipationBody": {
       "type": "object"
+    },
+    "StoresServiceIncreaseProductPriceBody": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "StoresServiceRebrandProductBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "StoresServiceRebrandStoreBody": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
     },
     "protobufAny": {
       "type": "object",
@@ -398,6 +590,9 @@
           "type": "string"
         }
       }
+    },
+    "storespbDecreaseProductPriceResponse": {
+      "type": "object"
     },
     "storespbDisableParticipationResponse": {
       "type": "object"
@@ -457,6 +652,9 @@
         }
       }
     },
+    "storespbIncreaseProductPriceResponse": {
+      "type": "object"
+    },
     "storespbProduct": {
       "type": "object",
       "properties": {
@@ -480,6 +678,12 @@
           "format": "double"
         }
       }
+    },
+    "storespbRebrandProductResponse": {
+      "type": "object"
+    },
+    "storespbRebrandStoreResponse": {
+      "type": "object"
     },
     "storespbRemoveProductResponse": {
       "type": "object"
