@@ -85,7 +85,7 @@ func (s server) GetBasket(ctx context.Context, request *basketspb.GetBasketReque
 
 func (s server) basketFromDomain(basket *domain.Basket) *basketspb.Basket {
 	protoBasket := &basketspb.Basket{
-		Id: basket.ID,
+		Id: basket.ID(),
 	}
 
 	protoBasket.Items = make([]*basketspb.Item, 0, len(basket.Items))

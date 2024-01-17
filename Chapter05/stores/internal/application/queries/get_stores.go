@@ -6,17 +6,16 @@ import (
 	"eda-in-golang/stores/internal/domain"
 )
 
-type GetStores struct {
-}
+type GetStores struct{}
 
 type GetStoresHandler struct {
-	stores domain.StoreRepository
+	mall domain.MallRepository
 }
 
-func NewGetStoresHandler(stores domain.StoreRepository) GetStoresHandler {
-	return GetStoresHandler{stores: stores}
+func NewGetStoresHandler(mall domain.MallRepository) GetStoresHandler {
+	return GetStoresHandler{mall: mall}
 }
 
-func (h GetStoresHandler) GetStores(ctx context.Context, _ GetStores) ([]*domain.Store, error) {
-	return h.stores.FindAll(ctx)
+func (h GetStoresHandler) GetStores(ctx context.Context, _ GetStores) ([]*domain.MallStore, error) {
+	return h.mall.All(ctx)
 }

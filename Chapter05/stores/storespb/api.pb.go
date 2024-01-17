@@ -122,6 +122,269 @@ func (x *CreateStoreResponse) GetId() string {
 	return ""
 }
 
+type EnableParticipationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *EnableParticipationRequest) Reset() {
+	*x = EnableParticipationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EnableParticipationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EnableParticipationRequest) ProtoMessage() {}
+
+func (x *EnableParticipationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EnableParticipationRequest.ProtoReflect.Descriptor instead.
+func (*EnableParticipationRequest) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *EnableParticipationRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type EnableParticipationResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *EnableParticipationResponse) Reset() {
+	*x = EnableParticipationResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EnableParticipationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EnableParticipationResponse) ProtoMessage() {}
+
+func (x *EnableParticipationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EnableParticipationResponse.ProtoReflect.Descriptor instead.
+func (*EnableParticipationResponse) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{3}
+}
+
+type DisableParticipationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *DisableParticipationRequest) Reset() {
+	*x = DisableParticipationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DisableParticipationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DisableParticipationRequest) ProtoMessage() {}
+
+func (x *DisableParticipationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DisableParticipationRequest.ProtoReflect.Descriptor instead.
+func (*DisableParticipationRequest) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *DisableParticipationRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type DisableParticipationResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *DisableParticipationResponse) Reset() {
+	*x = DisableParticipationResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DisableParticipationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DisableParticipationResponse) ProtoMessage() {}
+
+func (x *DisableParticipationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DisableParticipationResponse.ProtoReflect.Descriptor instead.
+func (*DisableParticipationResponse) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{5}
+}
+
+type RebrandStoreRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (x *RebrandStoreRequest) Reset() {
+	*x = RebrandStoreRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RebrandStoreRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RebrandStoreRequest) ProtoMessage() {}
+
+func (x *RebrandStoreRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RebrandStoreRequest.ProtoReflect.Descriptor instead.
+func (*RebrandStoreRequest) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *RebrandStoreRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *RebrandStoreRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+type RebrandStoreResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *RebrandStoreResponse) Reset() {
+	*x = RebrandStoreResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RebrandStoreResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RebrandStoreResponse) ProtoMessage() {}
+
+func (x *RebrandStoreResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RebrandStoreResponse.ProtoReflect.Descriptor instead.
+func (*RebrandStoreResponse) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{7}
+}
+
 type GetStoreRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -133,7 +396,7 @@ type GetStoreRequest struct {
 func (x *GetStoreRequest) Reset() {
 	*x = GetStoreRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[2]
+		mi := &file_storespb_api_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -146,7 +409,7 @@ func (x *GetStoreRequest) String() string {
 func (*GetStoreRequest) ProtoMessage() {}
 
 func (x *GetStoreRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[2]
+	mi := &file_storespb_api_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -159,7 +422,7 @@ func (x *GetStoreRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetStoreRequest.ProtoReflect.Descriptor instead.
 func (*GetStoreRequest) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{2}
+	return file_storespb_api_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetStoreRequest) GetId() string {
@@ -180,7 +443,7 @@ type GetStoreResponse struct {
 func (x *GetStoreResponse) Reset() {
 	*x = GetStoreResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[3]
+		mi := &file_storespb_api_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -193,7 +456,7 @@ func (x *GetStoreResponse) String() string {
 func (*GetStoreResponse) ProtoMessage() {}
 
 func (x *GetStoreResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[3]
+	mi := &file_storespb_api_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -206,7 +469,7 @@ func (x *GetStoreResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetStoreResponse.ProtoReflect.Descriptor instead.
 func (*GetStoreResponse) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{3}
+	return file_storespb_api_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetStoreResponse) GetStore() *Store {
@@ -225,7 +488,7 @@ type GetStoresRequest struct {
 func (x *GetStoresRequest) Reset() {
 	*x = GetStoresRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[4]
+		mi := &file_storespb_api_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -238,7 +501,7 @@ func (x *GetStoresRequest) String() string {
 func (*GetStoresRequest) ProtoMessage() {}
 
 func (x *GetStoresRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[4]
+	mi := &file_storespb_api_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -251,7 +514,7 @@ func (x *GetStoresRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetStoresRequest.ProtoReflect.Descriptor instead.
 func (*GetStoresRequest) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{4}
+	return file_storespb_api_proto_rawDescGZIP(), []int{10}
 }
 
 type GetStoresResponse struct {
@@ -265,7 +528,7 @@ type GetStoresResponse struct {
 func (x *GetStoresResponse) Reset() {
 	*x = GetStoresResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[5]
+		mi := &file_storespb_api_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -278,7 +541,7 @@ func (x *GetStoresResponse) String() string {
 func (*GetStoresResponse) ProtoMessage() {}
 
 func (x *GetStoresResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[5]
+	mi := &file_storespb_api_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -291,7 +554,7 @@ func (x *GetStoresResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetStoresResponse.ProtoReflect.Descriptor instead.
 func (*GetStoresResponse) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{5}
+	return file_storespb_api_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *GetStoresResponse) GetStores() []*Store {
@@ -299,176 +562,6 @@ func (x *GetStoresResponse) GetStores() []*Store {
 		return x.Stores
 	}
 	return nil
-}
-
-type EnableParticipationRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *EnableParticipationRequest) Reset() {
-	*x = EnableParticipationRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *EnableParticipationRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*EnableParticipationRequest) ProtoMessage() {}
-
-func (x *EnableParticipationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use EnableParticipationRequest.ProtoReflect.Descriptor instead.
-func (*EnableParticipationRequest) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *EnableParticipationRequest) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-type EnableParticipationResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *EnableParticipationResponse) Reset() {
-	*x = EnableParticipationResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *EnableParticipationResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*EnableParticipationResponse) ProtoMessage() {}
-
-func (x *EnableParticipationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use EnableParticipationResponse.ProtoReflect.Descriptor instead.
-func (*EnableParticipationResponse) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{7}
-}
-
-type DisableParticipationRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-}
-
-func (x *DisableParticipationRequest) Reset() {
-	*x = DisableParticipationRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DisableParticipationRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DisableParticipationRequest) ProtoMessage() {}
-
-func (x *DisableParticipationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DisableParticipationRequest.ProtoReflect.Descriptor instead.
-func (*DisableParticipationRequest) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *DisableParticipationRequest) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-type DisableParticipationResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *DisableParticipationResponse) Reset() {
-	*x = DisableParticipationResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *DisableParticipationResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*DisableParticipationResponse) ProtoMessage() {}
-
-func (x *DisableParticipationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use DisableParticipationResponse.ProtoReflect.Descriptor instead.
-func (*DisableParticipationResponse) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{9}
 }
 
 type GetParticipatingStoresRequest struct {
@@ -480,7 +573,7 @@ type GetParticipatingStoresRequest struct {
 func (x *GetParticipatingStoresRequest) Reset() {
 	*x = GetParticipatingStoresRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[10]
+		mi := &file_storespb_api_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -493,7 +586,7 @@ func (x *GetParticipatingStoresRequest) String() string {
 func (*GetParticipatingStoresRequest) ProtoMessage() {}
 
 func (x *GetParticipatingStoresRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[10]
+	mi := &file_storespb_api_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -506,7 +599,7 @@ func (x *GetParticipatingStoresRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetParticipatingStoresRequest.ProtoReflect.Descriptor instead.
 func (*GetParticipatingStoresRequest) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{10}
+	return file_storespb_api_proto_rawDescGZIP(), []int{12}
 }
 
 type GetParticipatingStoresResponse struct {
@@ -520,7 +613,7 @@ type GetParticipatingStoresResponse struct {
 func (x *GetParticipatingStoresResponse) Reset() {
 	*x = GetParticipatingStoresResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[11]
+		mi := &file_storespb_api_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -533,7 +626,7 @@ func (x *GetParticipatingStoresResponse) String() string {
 func (*GetParticipatingStoresResponse) ProtoMessage() {}
 
 func (x *GetParticipatingStoresResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[11]
+	mi := &file_storespb_api_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -546,7 +639,7 @@ func (x *GetParticipatingStoresResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetParticipatingStoresResponse.ProtoReflect.Descriptor instead.
 func (*GetParticipatingStoresResponse) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{11}
+	return file_storespb_api_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetParticipatingStoresResponse) GetStores() []*Store {
@@ -571,7 +664,7 @@ type AddProductRequest struct {
 func (x *AddProductRequest) Reset() {
 	*x = AddProductRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[12]
+		mi := &file_storespb_api_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -584,7 +677,7 @@ func (x *AddProductRequest) String() string {
 func (*AddProductRequest) ProtoMessage() {}
 
 func (x *AddProductRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[12]
+	mi := &file_storespb_api_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -597,7 +690,7 @@ func (x *AddProductRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddProductRequest.ProtoReflect.Descriptor instead.
 func (*AddProductRequest) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{12}
+	return file_storespb_api_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *AddProductRequest) GetStoreId() string {
@@ -646,7 +739,7 @@ type AddProductResponse struct {
 func (x *AddProductResponse) Reset() {
 	*x = AddProductResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[13]
+		mi := &file_storespb_api_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -659,7 +752,7 @@ func (x *AddProductResponse) String() string {
 func (*AddProductResponse) ProtoMessage() {}
 
 func (x *AddProductResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[13]
+	mi := &file_storespb_api_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -672,7 +765,7 @@ func (x *AddProductResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddProductResponse.ProtoReflect.Descriptor instead.
 func (*AddProductResponse) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{13}
+	return file_storespb_api_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *AddProductResponse) GetId() string {
@@ -680,6 +773,293 @@ func (x *AddProductResponse) GetId() string {
 		return x.Id
 	}
 	return ""
+}
+
+type RebrandProductRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name        string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+}
+
+func (x *RebrandProductRequest) Reset() {
+	*x = RebrandProductRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RebrandProductRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RebrandProductRequest) ProtoMessage() {}
+
+func (x *RebrandProductRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RebrandProductRequest.ProtoReflect.Descriptor instead.
+func (*RebrandProductRequest) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *RebrandProductRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *RebrandProductRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *RebrandProductRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+type RebrandProductResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *RebrandProductResponse) Reset() {
+	*x = RebrandProductResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RebrandProductResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RebrandProductResponse) ProtoMessage() {}
+
+func (x *RebrandProductResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RebrandProductResponse.ProtoReflect.Descriptor instead.
+func (*RebrandProductResponse) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{17}
+}
+
+type IncreaseProductPriceRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id    string  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Price float64 `protobuf:"fixed64,2,opt,name=price,proto3" json:"price,omitempty"`
+}
+
+func (x *IncreaseProductPriceRequest) Reset() {
+	*x = IncreaseProductPriceRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IncreaseProductPriceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IncreaseProductPriceRequest) ProtoMessage() {}
+
+func (x *IncreaseProductPriceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IncreaseProductPriceRequest.ProtoReflect.Descriptor instead.
+func (*IncreaseProductPriceRequest) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *IncreaseProductPriceRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *IncreaseProductPriceRequest) GetPrice() float64 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+type IncreaseProductPriceResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *IncreaseProductPriceResponse) Reset() {
+	*x = IncreaseProductPriceResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IncreaseProductPriceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IncreaseProductPriceResponse) ProtoMessage() {}
+
+func (x *IncreaseProductPriceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IncreaseProductPriceResponse.ProtoReflect.Descriptor instead.
+func (*IncreaseProductPriceResponse) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{19}
+}
+
+type DecreaseProductPriceRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id    string  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Price float64 `protobuf:"fixed64,2,opt,name=price,proto3" json:"price,omitempty"`
+}
+
+func (x *DecreaseProductPriceRequest) Reset() {
+	*x = DecreaseProductPriceRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DecreaseProductPriceRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DecreaseProductPriceRequest) ProtoMessage() {}
+
+func (x *DecreaseProductPriceRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DecreaseProductPriceRequest.ProtoReflect.Descriptor instead.
+func (*DecreaseProductPriceRequest) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *DecreaseProductPriceRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *DecreaseProductPriceRequest) GetPrice() float64 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+type DecreaseProductPriceResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *DecreaseProductPriceResponse) Reset() {
+	*x = DecreaseProductPriceResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_storespb_api_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DecreaseProductPriceResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DecreaseProductPriceResponse) ProtoMessage() {}
+
+func (x *DecreaseProductPriceResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_storespb_api_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DecreaseProductPriceResponse.ProtoReflect.Descriptor instead.
+func (*DecreaseProductPriceResponse) Descriptor() ([]byte, []int) {
+	return file_storespb_api_proto_rawDescGZIP(), []int{21}
 }
 
 type RemoveProductRequest struct {
@@ -693,7 +1073,7 @@ type RemoveProductRequest struct {
 func (x *RemoveProductRequest) Reset() {
 	*x = RemoveProductRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[14]
+		mi := &file_storespb_api_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -706,7 +1086,7 @@ func (x *RemoveProductRequest) String() string {
 func (*RemoveProductRequest) ProtoMessage() {}
 
 func (x *RemoveProductRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[14]
+	mi := &file_storespb_api_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -719,7 +1099,7 @@ func (x *RemoveProductRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveProductRequest.ProtoReflect.Descriptor instead.
 func (*RemoveProductRequest) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{14}
+	return file_storespb_api_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *RemoveProductRequest) GetId() string {
@@ -738,7 +1118,7 @@ type RemoveProductResponse struct {
 func (x *RemoveProductResponse) Reset() {
 	*x = RemoveProductResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[15]
+		mi := &file_storespb_api_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -751,7 +1131,7 @@ func (x *RemoveProductResponse) String() string {
 func (*RemoveProductResponse) ProtoMessage() {}
 
 func (x *RemoveProductResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[15]
+	mi := &file_storespb_api_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -764,7 +1144,7 @@ func (x *RemoveProductResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use RemoveProductResponse.ProtoReflect.Descriptor instead.
 func (*RemoveProductResponse) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{15}
+	return file_storespb_api_proto_rawDescGZIP(), []int{23}
 }
 
 type GetCatalogRequest struct {
@@ -778,7 +1158,7 @@ type GetCatalogRequest struct {
 func (x *GetCatalogRequest) Reset() {
 	*x = GetCatalogRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[16]
+		mi := &file_storespb_api_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -791,7 +1171,7 @@ func (x *GetCatalogRequest) String() string {
 func (*GetCatalogRequest) ProtoMessage() {}
 
 func (x *GetCatalogRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[16]
+	mi := &file_storespb_api_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -804,7 +1184,7 @@ func (x *GetCatalogRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCatalogRequest.ProtoReflect.Descriptor instead.
 func (*GetCatalogRequest) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{16}
+	return file_storespb_api_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *GetCatalogRequest) GetStoreId() string {
@@ -825,7 +1205,7 @@ type GetCatalogResponse struct {
 func (x *GetCatalogResponse) Reset() {
 	*x = GetCatalogResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[17]
+		mi := &file_storespb_api_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -838,7 +1218,7 @@ func (x *GetCatalogResponse) String() string {
 func (*GetCatalogResponse) ProtoMessage() {}
 
 func (x *GetCatalogResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[17]
+	mi := &file_storespb_api_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -851,7 +1231,7 @@ func (x *GetCatalogResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetCatalogResponse.ProtoReflect.Descriptor instead.
 func (*GetCatalogResponse) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{17}
+	return file_storespb_api_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *GetCatalogResponse) GetProducts() []*Product {
@@ -872,7 +1252,7 @@ type GetProductRequest struct {
 func (x *GetProductRequest) Reset() {
 	*x = GetProductRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[18]
+		mi := &file_storespb_api_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -885,7 +1265,7 @@ func (x *GetProductRequest) String() string {
 func (*GetProductRequest) ProtoMessage() {}
 
 func (x *GetProductRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[18]
+	mi := &file_storespb_api_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -898,7 +1278,7 @@ func (x *GetProductRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProductRequest.ProtoReflect.Descriptor instead.
 func (*GetProductRequest) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{18}
+	return file_storespb_api_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *GetProductRequest) GetId() string {
@@ -919,7 +1299,7 @@ type GetProductResponse struct {
 func (x *GetProductResponse) Reset() {
 	*x = GetProductResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_storespb_api_proto_msgTypes[19]
+		mi := &file_storespb_api_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -932,7 +1312,7 @@ func (x *GetProductResponse) String() string {
 func (*GetProductResponse) ProtoMessage() {}
 
 func (x *GetProductResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_storespb_api_proto_msgTypes[19]
+	mi := &file_storespb_api_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -945,7 +1325,7 @@ func (x *GetProductResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetProductResponse.ProtoReflect.Descriptor instead.
 func (*GetProductResponse) Descriptor() ([]byte, []int) {
-	return file_storespb_api_proto_rawDescGZIP(), []int{19}
+	return file_storespb_api_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *GetProductResponse) GetProduct() *Product {
@@ -968,18 +1348,7 @@ var file_storespb_api_proto_rawDesc = []byte{
 	0x01, 0x28, 0x09, 0x52, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x25, 0x0a,
 	0x13, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70,
 	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x02, 0x69, 0x64, 0x22, 0x21, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x39, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x53, 0x74,
-	0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x05, 0x73,
-	0x74, 0x6f, 0x72, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x73, 0x74, 0x6f,
-	0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x05, 0x73, 0x74, 0x6f,
-	0x72, 0x65, 0x22, 0x12, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x3c, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f,
-	0x72, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x06, 0x73,
-	0x74, 0x6f, 0x72, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x73, 0x74,
-	0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x06, 0x73, 0x74,
-	0x6f, 0x72, 0x65, 0x73, 0x22, 0x2c, 0x0a, 0x1a, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61,
+	0x52, 0x02, 0x69, 0x64, 0x22, 0x2c, 0x0a, 0x1a, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61,
 	0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65,
 	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
 	0x69, 0x64, 0x22, 0x1d, 0x0a, 0x1b, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72, 0x74,
@@ -989,96 +1358,156 @@ var file_storespb_api_proto_rawDesc = []byte{
 	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
 	0x22, 0x1e, 0x0a, 0x1c, 0x44, 0x69, 0x73, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72, 0x74, 0x69,
 	0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x22, 0x1f, 0x0a, 0x1d, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61,
-	0x74, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x22, 0x49, 0x0a, 0x1e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70,
-	0x61, 0x74, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x06, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x18, 0x01, 0x20,
-	0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x53,
-	0x74, 0x6f, 0x72, 0x65, 0x52, 0x06, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x22, 0x8c, 0x01, 0x0a,
-	0x11, 0x41, 0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x64, 0x12, 0x12, 0x0a,
+	0x22, 0x39, 0x0a, 0x13, 0x52, 0x65, 0x62, 0x72, 0x61, 0x6e, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x16, 0x0a, 0x14, 0x52,
+	0x65, 0x62, 0x72, 0x61, 0x6e, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x21, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x39, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f,
+	0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x25, 0x0a, 0x05, 0x73, 0x74,
+	0x6f, 0x72, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x73, 0x74, 0x6f, 0x72,
+	0x65, 0x73, 0x70, 0x62, 0x2e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x05, 0x73, 0x74, 0x6f, 0x72,
+	0x65, 0x22, 0x12, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x3c, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72,
+	0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x06, 0x73, 0x74,
+	0x6f, 0x72, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x73, 0x74, 0x6f,
+	0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x06, 0x73, 0x74, 0x6f,
+	0x72, 0x65, 0x73, 0x22, 0x1f, 0x0a, 0x1d, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63,
+	0x69, 0x70, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x22, 0x49, 0x0a, 0x1e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69,
+	0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x06, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70,
+	0x62, 0x2e, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x06, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x22,
+	0x8c, 0x01, 0x0a, 0x11, 0x41, 0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x64,
+	0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x6e, 0x61, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72,
+	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x10, 0x0a, 0x03, 0x73, 0x6b, 0x75, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x03, 0x73, 0x6b, 0x75, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69, 0x63,
+	0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x01, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x22, 0x24,
+	0x0a, 0x12, 0x41, 0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x02, 0x69, 0x64, 0x22, 0x5d, 0x0a, 0x15, 0x52, 0x65, 0x62, 0x72, 0x61, 0x6e, 0x64, 0x50,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a,
 	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d,
 	0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
 	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
-	0x69, 0x6f, 0x6e, 0x12, 0x10, 0x0a, 0x03, 0x73, 0x6b, 0x75, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x03, 0x73, 0x6b, 0x75, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x05,
-	0x20, 0x01, 0x28, 0x01, 0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x22, 0x24, 0x0a, 0x12, 0x41,
-	0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69,
-	0x64, 0x22, 0x26, 0x0a, 0x14, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75,
-	0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x17, 0x0a, 0x15, 0x52, 0x65, 0x6d,
-	0x6f, 0x76, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x2e, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x73, 0x74, 0x6f, 0x72, 0x65,
-	0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x73, 0x74, 0x6f, 0x72, 0x65,
-	0x49, 0x64, 0x22, 0x43, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2d, 0x0a, 0x08, 0x70, 0x72, 0x6f, 0x64,
-	0x75, 0x63, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x73, 0x74, 0x6f,
-	0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x08, 0x70,
-	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x22, 0x23, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x50, 0x72,
-	0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02,
-	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x41, 0x0a, 0x12,
-	0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x2b, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x50,
-	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x07, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x32,
-	0xdd, 0x06, 0x0a, 0x0d, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63,
-	0x65, 0x12, 0x4c, 0x0a, 0x0b, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65,
-	0x12, 0x1c, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x43, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d,
-	0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
-	0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12,
-	0x43, 0x0a, 0x08, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x19, 0x2e, 0x73, 0x74,
-	0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70,
-	0x62, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x00, 0x12, 0x46, 0x0a, 0x09, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65,
-	0x73, 0x12, 0x1a, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74,
-	0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e,
-	0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72,
-	0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x64, 0x0a, 0x13,
-	0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x12, 0x24, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x45,
-	0x6e, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x25, 0x2e, 0x73, 0x74, 0x6f, 0x72,
-	0x65, 0x73, 0x70, 0x62, 0x2e, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72, 0x74, 0x69,
-	0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x22, 0x00, 0x12, 0x67, 0x0a, 0x14, 0x44, 0x69, 0x73, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72,
-	0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x25, 0x2e, 0x73, 0x74, 0x6f,
-	0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x44, 0x69, 0x73, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72,
-	0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x26, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x44, 0x69, 0x73,
+	0x69, 0x6f, 0x6e, 0x22, 0x18, 0x0a, 0x16, 0x52, 0x65, 0x62, 0x72, 0x61, 0x6e, 0x64, 0x50, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x43, 0x0a,
+	0x1b, 0x49, 0x6e, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05,
+	0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x01, 0x52, 0x05, 0x70, 0x72, 0x69,
+	0x63, 0x65, 0x22, 0x1e, 0x0a, 0x1c, 0x49, 0x6e, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x22, 0x43, 0x0a, 0x1b, 0x44, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69,
+	0x64, 0x12, 0x14, 0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x01,
+	0x52, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x22, 0x1e, 0x0a, 0x1c, 0x44, 0x65, 0x63, 0x72, 0x65,
+	0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x26, 0x0a, 0x14, 0x52, 0x65, 0x6d, 0x6f, 0x76,
+	0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22,
+	0x17, 0x0a, 0x15, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x2e, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x43,
+	0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x19, 0x0a,
+	0x08, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x07, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x64, 0x22, 0x43, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x43,
+	0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2d,
+	0x0a, 0x08, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x11, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x50, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x22, 0x23, 0x0a,
+	0x11, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
+	0x69, 0x64, 0x22, 0x41, 0x0a, 0x12, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x73, 0x74, 0x6f, 0x72,
+	0x65, 0x73, 0x70, 0x62, 0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x07, 0x70, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x32, 0xd7, 0x09, 0x0a, 0x0d, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73,
+	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x4c, 0x0a, 0x0b, 0x43, 0x72, 0x65, 0x61, 0x74,
+	0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x1c, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70,
+	0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e,
+	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x64, 0x0a, 0x13, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x50,
+	0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x24, 0x2e, 0x73,
+	0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x45, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61,
+	0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x25, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x45, 0x6e,
 	0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x6d, 0x0a, 0x16, 0x47,
-	0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x53,
-	0x74, 0x6f, 0x72, 0x65, 0x73, 0x12, 0x27, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62,
+	0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x67, 0x0a, 0x14, 0x44,
+	0x69, 0x73, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x12, 0x25, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x44,
+	0x69, 0x73, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x73, 0x74, 0x6f,
+	0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x44, 0x69, 0x73, 0x61, 0x62, 0x6c, 0x65, 0x50, 0x61, 0x72,
+	0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x22, 0x00, 0x12, 0x4f, 0x0a, 0x0c, 0x52, 0x65, 0x62, 0x72, 0x61, 0x6e, 0x64, 0x53,
+	0x74, 0x6f, 0x72, 0x65, 0x12, 0x1d, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e,
+	0x52, 0x65, 0x62, 0x72, 0x61, 0x6e, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x1e, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x52,
+	0x65, 0x62, 0x72, 0x61, 0x6e, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x43, 0x0a, 0x08, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72,
+	0x65, 0x12, 0x19, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74,
+	0x53, 0x74, 0x6f, 0x72, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x73,
+	0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x46, 0x0a, 0x09, 0x47, 0x65,
+	0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x12, 0x1a, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73,
+	0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47,
+	0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x00, 0x12, 0x6d, 0x0a, 0x16, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69,
+	0x70, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x12, 0x27, 0x2e, 0x73,
+	0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69,
+	0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62,
 	0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72, 0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6e,
-	0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x28,
-	0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x61, 0x72,
-	0x74, 0x69, 0x63, 0x69, 0x70, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x49, 0x0a, 0x0a, 0x41, 0x64,
-	0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x1b, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65,
-	0x73, 0x70, 0x62, 0x2e, 0x41, 0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62,
-	0x2e, 0x41, 0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x67, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
+	0x00, 0x12, 0x49, 0x0a, 0x0a, 0x41, 0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12,
+	0x1b, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x41, 0x64, 0x64, 0x50, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x73,
+	0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x41, 0x64, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75,
+	0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x55, 0x0a, 0x0e,
+	0x52, 0x65, 0x62, 0x72, 0x61, 0x6e, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x1f,
+	0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x52, 0x65, 0x62, 0x72, 0x61, 0x6e,
+	0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x20, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x52, 0x65, 0x62, 0x72, 0x61,
+	0x6e, 0x64, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x22, 0x00, 0x12, 0x67, 0x0a, 0x14, 0x49, 0x6e, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x25, 0x2e, 0x73, 0x74,
+	0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x49, 0x6e, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x26, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x49, 0x6e,
+	0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x50, 0x72, 0x69,
+	0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x67, 0x0a, 0x14,
+	0x44, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x50,
+	0x72, 0x69, 0x63, 0x65, 0x12, 0x25, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e,
+	0x44, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x50,
+	0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x26, 0x2e, 0x73, 0x74,
+	0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x44, 0x65, 0x63, 0x72, 0x65, 0x61, 0x73, 0x65, 0x50,
+	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x50, 0x72, 0x69, 0x63, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
 	0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x52, 0x0a, 0x0d, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x50,
 	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x1e, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70,
 	0x62, 0x2e, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52,
 	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70,
 	0x62, 0x2e, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x49, 0x0a, 0x0a, 0x47, 0x65, 0x74,
-	0x43, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x12, 0x1b, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73,
-	0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x52, 0x65, 0x71,
+	0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x12, 0x1b, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73,
+	0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e,
-	0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x22, 0x00, 0x12, 0x49, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75,
-	0x63, 0x74, 0x12, 0x1b, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65,
-	0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x1c, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x50, 0x72,
-	0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42,
+	0x47, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x22, 0x00, 0x12, 0x49, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x43, 0x61, 0x74, 0x61, 0x6c,
+	0x6f, 0x67, 0x12, 0x1b, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65,
+	0x74, 0x43, 0x61, 0x74, 0x61, 0x6c, 0x6f, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x1c, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62, 0x2e, 0x47, 0x65, 0x74, 0x43, 0x61,
+	0x74, 0x61, 0x6c, 0x6f, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42,
 	0x80, 0x01, 0x0a, 0x0c, 0x63, 0x6f, 0x6d, 0x2e, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x73, 0x70, 0x62,
 	0x42, 0x08, 0x41, 0x70, 0x69, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x26, 0x65, 0x64,
 	0x61, 0x2d, 0x69, 0x6e, 0x2d, 0x67, 0x6f, 0x6c, 0x61, 0x6e, 0x67, 0x2f, 0x73, 0x74, 0x6f, 0x72,
@@ -1102,59 +1531,75 @@ func file_storespb_api_proto_rawDescGZIP() []byte {
 	return file_storespb_api_proto_rawDescData
 }
 
-var file_storespb_api_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
+var file_storespb_api_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
 var file_storespb_api_proto_goTypes = []interface{}{
 	(*CreateStoreRequest)(nil),             // 0: storespb.CreateStoreRequest
 	(*CreateStoreResponse)(nil),            // 1: storespb.CreateStoreResponse
-	(*GetStoreRequest)(nil),                // 2: storespb.GetStoreRequest
-	(*GetStoreResponse)(nil),               // 3: storespb.GetStoreResponse
-	(*GetStoresRequest)(nil),               // 4: storespb.GetStoresRequest
-	(*GetStoresResponse)(nil),              // 5: storespb.GetStoresResponse
-	(*EnableParticipationRequest)(nil),     // 6: storespb.EnableParticipationRequest
-	(*EnableParticipationResponse)(nil),    // 7: storespb.EnableParticipationResponse
-	(*DisableParticipationRequest)(nil),    // 8: storespb.DisableParticipationRequest
-	(*DisableParticipationResponse)(nil),   // 9: storespb.DisableParticipationResponse
-	(*GetParticipatingStoresRequest)(nil),  // 10: storespb.GetParticipatingStoresRequest
-	(*GetParticipatingStoresResponse)(nil), // 11: storespb.GetParticipatingStoresResponse
-	(*AddProductRequest)(nil),              // 12: storespb.AddProductRequest
-	(*AddProductResponse)(nil),             // 13: storespb.AddProductResponse
-	(*RemoveProductRequest)(nil),           // 14: storespb.RemoveProductRequest
-	(*RemoveProductResponse)(nil),          // 15: storespb.RemoveProductResponse
-	(*GetCatalogRequest)(nil),              // 16: storespb.GetCatalogRequest
-	(*GetCatalogResponse)(nil),             // 17: storespb.GetCatalogResponse
-	(*GetProductRequest)(nil),              // 18: storespb.GetProductRequest
-	(*GetProductResponse)(nil),             // 19: storespb.GetProductResponse
-	(*Store)(nil),                          // 20: storespb.Store
-	(*Product)(nil),                        // 21: storespb.Product
+	(*EnableParticipationRequest)(nil),     // 2: storespb.EnableParticipationRequest
+	(*EnableParticipationResponse)(nil),    // 3: storespb.EnableParticipationResponse
+	(*DisableParticipationRequest)(nil),    // 4: storespb.DisableParticipationRequest
+	(*DisableParticipationResponse)(nil),   // 5: storespb.DisableParticipationResponse
+	(*RebrandStoreRequest)(nil),            // 6: storespb.RebrandStoreRequest
+	(*RebrandStoreResponse)(nil),           // 7: storespb.RebrandStoreResponse
+	(*GetStoreRequest)(nil),                // 8: storespb.GetStoreRequest
+	(*GetStoreResponse)(nil),               // 9: storespb.GetStoreResponse
+	(*GetStoresRequest)(nil),               // 10: storespb.GetStoresRequest
+	(*GetStoresResponse)(nil),              // 11: storespb.GetStoresResponse
+	(*GetParticipatingStoresRequest)(nil),  // 12: storespb.GetParticipatingStoresRequest
+	(*GetParticipatingStoresResponse)(nil), // 13: storespb.GetParticipatingStoresResponse
+	(*AddProductRequest)(nil),              // 14: storespb.AddProductRequest
+	(*AddProductResponse)(nil),             // 15: storespb.AddProductResponse
+	(*RebrandProductRequest)(nil),          // 16: storespb.RebrandProductRequest
+	(*RebrandProductResponse)(nil),         // 17: storespb.RebrandProductResponse
+	(*IncreaseProductPriceRequest)(nil),    // 18: storespb.IncreaseProductPriceRequest
+	(*IncreaseProductPriceResponse)(nil),   // 19: storespb.IncreaseProductPriceResponse
+	(*DecreaseProductPriceRequest)(nil),    // 20: storespb.DecreaseProductPriceRequest
+	(*DecreaseProductPriceResponse)(nil),   // 21: storespb.DecreaseProductPriceResponse
+	(*RemoveProductRequest)(nil),           // 22: storespb.RemoveProductRequest
+	(*RemoveProductResponse)(nil),          // 23: storespb.RemoveProductResponse
+	(*GetCatalogRequest)(nil),              // 24: storespb.GetCatalogRequest
+	(*GetCatalogResponse)(nil),             // 25: storespb.GetCatalogResponse
+	(*GetProductRequest)(nil),              // 26: storespb.GetProductRequest
+	(*GetProductResponse)(nil),             // 27: storespb.GetProductResponse
+	(*Store)(nil),                          // 28: storespb.Store
+	(*Product)(nil),                        // 29: storespb.Product
 }
 var file_storespb_api_proto_depIdxs = []int32{
-	20, // 0: storespb.GetStoreResponse.store:type_name -> storespb.Store
-	20, // 1: storespb.GetStoresResponse.stores:type_name -> storespb.Store
-	20, // 2: storespb.GetParticipatingStoresResponse.stores:type_name -> storespb.Store
-	21, // 3: storespb.GetCatalogResponse.products:type_name -> storespb.Product
-	21, // 4: storespb.GetProductResponse.product:type_name -> storespb.Product
+	28, // 0: storespb.GetStoreResponse.store:type_name -> storespb.Store
+	28, // 1: storespb.GetStoresResponse.stores:type_name -> storespb.Store
+	28, // 2: storespb.GetParticipatingStoresResponse.stores:type_name -> storespb.Store
+	29, // 3: storespb.GetCatalogResponse.products:type_name -> storespb.Product
+	29, // 4: storespb.GetProductResponse.product:type_name -> storespb.Product
 	0,  // 5: storespb.StoresService.CreateStore:input_type -> storespb.CreateStoreRequest
-	2,  // 6: storespb.StoresService.GetStore:input_type -> storespb.GetStoreRequest
-	4,  // 7: storespb.StoresService.GetStores:input_type -> storespb.GetStoresRequest
-	6,  // 8: storespb.StoresService.EnableParticipation:input_type -> storespb.EnableParticipationRequest
-	8,  // 9: storespb.StoresService.DisableParticipation:input_type -> storespb.DisableParticipationRequest
-	10, // 10: storespb.StoresService.GetParticipatingStores:input_type -> storespb.GetParticipatingStoresRequest
-	12, // 11: storespb.StoresService.AddProduct:input_type -> storespb.AddProductRequest
-	14, // 12: storespb.StoresService.RemoveProduct:input_type -> storespb.RemoveProductRequest
-	16, // 13: storespb.StoresService.GetCatalog:input_type -> storespb.GetCatalogRequest
-	18, // 14: storespb.StoresService.GetProduct:input_type -> storespb.GetProductRequest
-	1,  // 15: storespb.StoresService.CreateStore:output_type -> storespb.CreateStoreResponse
-	3,  // 16: storespb.StoresService.GetStore:output_type -> storespb.GetStoreResponse
-	5,  // 17: storespb.StoresService.GetStores:output_type -> storespb.GetStoresResponse
-	7,  // 18: storespb.StoresService.EnableParticipation:output_type -> storespb.EnableParticipationResponse
-	9,  // 19: storespb.StoresService.DisableParticipation:output_type -> storespb.DisableParticipationResponse
-	11, // 20: storespb.StoresService.GetParticipatingStores:output_type -> storespb.GetParticipatingStoresResponse
-	13, // 21: storespb.StoresService.AddProduct:output_type -> storespb.AddProductResponse
-	15, // 22: storespb.StoresService.RemoveProduct:output_type -> storespb.RemoveProductResponse
-	17, // 23: storespb.StoresService.GetCatalog:output_type -> storespb.GetCatalogResponse
-	19, // 24: storespb.StoresService.GetProduct:output_type -> storespb.GetProductResponse
-	15, // [15:25] is the sub-list for method output_type
-	5,  // [5:15] is the sub-list for method input_type
+	2,  // 6: storespb.StoresService.EnableParticipation:input_type -> storespb.EnableParticipationRequest
+	4,  // 7: storespb.StoresService.DisableParticipation:input_type -> storespb.DisableParticipationRequest
+	6,  // 8: storespb.StoresService.RebrandStore:input_type -> storespb.RebrandStoreRequest
+	8,  // 9: storespb.StoresService.GetStore:input_type -> storespb.GetStoreRequest
+	10, // 10: storespb.StoresService.GetStores:input_type -> storespb.GetStoresRequest
+	12, // 11: storespb.StoresService.GetParticipatingStores:input_type -> storespb.GetParticipatingStoresRequest
+	14, // 12: storespb.StoresService.AddProduct:input_type -> storespb.AddProductRequest
+	16, // 13: storespb.StoresService.RebrandProduct:input_type -> storespb.RebrandProductRequest
+	18, // 14: storespb.StoresService.IncreaseProductPrice:input_type -> storespb.IncreaseProductPriceRequest
+	20, // 15: storespb.StoresService.DecreaseProductPrice:input_type -> storespb.DecreaseProductPriceRequest
+	22, // 16: storespb.StoresService.RemoveProduct:input_type -> storespb.RemoveProductRequest
+	26, // 17: storespb.StoresService.GetProduct:input_type -> storespb.GetProductRequest
+	24, // 18: storespb.StoresService.GetCatalog:input_type -> storespb.GetCatalogRequest
+	1,  // 19: storespb.StoresService.CreateStore:output_type -> storespb.CreateStoreResponse
+	3,  // 20: storespb.StoresService.EnableParticipation:output_type -> storespb.EnableParticipationResponse
+	5,  // 21: storespb.StoresService.DisableParticipation:output_type -> storespb.DisableParticipationResponse
+	7,  // 22: storespb.StoresService.RebrandStore:output_type -> storespb.RebrandStoreResponse
+	9,  // 23: storespb.StoresService.GetStore:output_type -> storespb.GetStoreResponse
+	11, // 24: storespb.StoresService.GetStores:output_type -> storespb.GetStoresResponse
+	13, // 25: storespb.StoresService.GetParticipatingStores:output_type -> storespb.GetParticipatingStoresResponse
+	15, // 26: storespb.StoresService.AddProduct:output_type -> storespb.AddProductResponse
+	17, // 27: storespb.StoresService.RebrandProduct:output_type -> storespb.RebrandProductResponse
+	19, // 28: storespb.StoresService.IncreaseProductPrice:output_type -> storespb.IncreaseProductPriceResponse
+	21, // 29: storespb.StoresService.DecreaseProductPrice:output_type -> storespb.DecreaseProductPriceResponse
+	23, // 30: storespb.StoresService.RemoveProduct:output_type -> storespb.RemoveProductResponse
+	27, // 31: storespb.StoresService.GetProduct:output_type -> storespb.GetProductResponse
+	25, // 32: storespb.StoresService.GetCatalog:output_type -> storespb.GetCatalogResponse
+	19, // [19:33] is the sub-list for method output_type
+	5,  // [5:19] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name
@@ -1192,54 +1637,6 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetStoreRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_storespb_api_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetStoreResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_storespb_api_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetStoresRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_storespb_api_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetStoresResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_storespb_api_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EnableParticipationRequest); i {
 			case 0:
 				return &v.state
@@ -1251,7 +1648,7 @@ func file_storespb_api_proto_init() {
 				return nil
 			}
 		}
-		file_storespb_api_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_storespb_api_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EnableParticipationResponse); i {
 			case 0:
 				return &v.state
@@ -1263,7 +1660,7 @@ func file_storespb_api_proto_init() {
 				return nil
 			}
 		}
-		file_storespb_api_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_storespb_api_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DisableParticipationRequest); i {
 			case 0:
 				return &v.state
@@ -1275,7 +1672,7 @@ func file_storespb_api_proto_init() {
 				return nil
 			}
 		}
-		file_storespb_api_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+		file_storespb_api_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DisableParticipationResponse); i {
 			case 0:
 				return &v.state
@@ -1287,8 +1684,56 @@ func file_storespb_api_proto_init() {
 				return nil
 			}
 		}
+		file_storespb_api_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RebrandStoreRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RebrandStoreResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetStoreRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetStoreResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 		file_storespb_api_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetParticipatingStoresRequest); i {
+			switch v := v.(*GetStoresRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1300,7 +1745,7 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetParticipatingStoresResponse); i {
+			switch v := v.(*GetStoresResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1312,7 +1757,7 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddProductRequest); i {
+			switch v := v.(*GetParticipatingStoresRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1324,7 +1769,7 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddProductResponse); i {
+			switch v := v.(*GetParticipatingStoresResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1336,7 +1781,7 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RemoveProductRequest); i {
+			switch v := v.(*AddProductRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1348,7 +1793,7 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RemoveProductResponse); i {
+			switch v := v.(*AddProductResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1360,7 +1805,7 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetCatalogRequest); i {
+			switch v := v.(*RebrandProductRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1372,7 +1817,7 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetCatalogResponse); i {
+			switch v := v.(*RebrandProductResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1384,7 +1829,7 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetProductRequest); i {
+			switch v := v.(*IncreaseProductPriceRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1396,6 +1841,102 @@ func file_storespb_api_proto_init() {
 			}
 		}
 		file_storespb_api_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*IncreaseProductPriceResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DecreaseProductPriceRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DecreaseProductPriceResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RemoveProductRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RemoveProductResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetCatalogRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetCatalogResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetProductRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_storespb_api_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetProductResponse); i {
 			case 0:
 				return &v.state
@@ -1414,7 +1955,7 @@ func file_storespb_api_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_storespb_api_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   20,
+			NumMessages:   28,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

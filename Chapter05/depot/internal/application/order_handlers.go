@@ -7,20 +7,27 @@ import (
 	"eda-in-golang/internal/ddd"
 )
 
-type OrderHandlers struct {
+type OrderHandlers[T ddd.AggregateEvent] struct {
 	orders domain.OrderRepository
-	ignoreUnimplementedDomainEvents
 }
 
-var _ DomainEventHandlers = (*OrderHandlers)(nil)
+var _ ddd.EventHandler[ddd.AggregateEvent] = (*OrderHandlers[ddd.AggregateEvent])(nil)
 
-func NewOrderHandlers(orders domain.OrderRepository) OrderHandlers {
-	return OrderHandlers{
+func NewOrderHandlers(orders domain.OrderRepository) OrderHandlers[ddd.AggregateEvent] {
+	return OrderHandlers[ddd.AggregateEvent]{
 		orders: orders,
 	}
 }
 
-func (h OrderHandlers) OnShoppingListCompleted(ctx context.Context, event ddd.Event) error {
-	completed := event.(*domain.ShoppingListCompleted)
+func (h OrderHandlers[T]) HandleEvent(ctx context.Context, event T) error {
+	switch event.EventName() {
+	case domain.ShoppingListCompletedEvent:
+		return h.onShoppingListCompleted(ctx, event)
+	}
+	return nil
+}
+
+func (h OrderHandlers[T]) onShoppingListCompleted(ctx context.Context, event ddd.AggregateEvent) error {
+	completed := event.Payload().(*domain.ShoppingListCompleted)
 	return h.orders.Ready(ctx, completed.ShoppingList.OrderID)
 }
