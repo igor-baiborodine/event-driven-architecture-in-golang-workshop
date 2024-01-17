@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/nats-io/nats.go"
 	"github.com/rs/zerolog"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
@@ -21,6 +22,8 @@ import (
 type app struct {
 	cfg     config.AppConfig
 	db      *sql.DB
+	nc      *nats.Conn
+	js      nats.JetStreamContext
 	logger  zerolog.Logger
 	modules []monolith.Module
 	mux     *chi.Mux
@@ -34,6 +37,10 @@ func (a *app) Config() config.AppConfig {
 
 func (a *app) DB() *sql.DB {
 	return a.db
+}
+
+func (a *app) JS() nats.JetStreamContext {
+	return a.js
 }
 
 func (a *app) Logger() zerolog.Logger {
@@ -125,5 +132,24 @@ func (a *app) waitForRPC(ctx context.Context) error {
 		}
 	})
 
+	return group.Wait()
+}
+
+func (a *app) waitForStream(ctx context.Context) error {
+	closed := make(chan struct{})
+	a.nc.SetClosedHandler(func(*nats.Conn) {
+		close(closed)
+	})
+	group, gCtx := errgroup.WithContext(ctx)
+	group.Go(func() error {
+		fmt.Println("message stream started")
+		defer fmt.Println("message stream stopped")
+		<-closed
+		return nil
+	})
+	group.Go(func() error {
+		<-gCtx.Done()
+		return a.nc.Drain()
+	})
 	return group.Wait()
 }

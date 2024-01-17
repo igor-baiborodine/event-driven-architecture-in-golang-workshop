@@ -8,6 +8,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	_ "github.com/jackc/pgx/v4/stdlib"
+	"github.com/nats-io/nats.go"
+	"github.com/rs/zerolog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
@@ -44,6 +46,7 @@ func run() (err error) {
 	m := app{cfg: cfg}
 
 	// init infrastructure...
+	// init db
 	m.db, err = sql.Open("pgx", cfg.PG.Conn)
 	if err != nil {
 		return err
@@ -54,10 +57,17 @@ func run() (err error) {
 			return
 		}
 	}(m.db)
-	m.logger = logger.New(logger.LogConfig{
-		Environment: cfg.Environment,
-		LogLevel:    logger.Level(cfg.LogLevel),
-	})
+	// init nats & jetstream
+	m.nc, err = nats.Connect(cfg.Nats.URL)
+	if err != nil {
+		return err
+	}
+	defer m.nc.Close()
+	m.js, err = initJetStream(cfg.Nats, m.nc)
+	if err != nil {
+		return err
+	}
+	m.logger = initLogger(cfg)
 	m.rpc = initRpc(cfg.Rpc)
 	m.mux = initMux(cfg.Web)
 	m.waiter = waiter.New(waiter.CatchSignals())
@@ -86,9 +96,17 @@ func run() (err error) {
 	m.waiter.Add(
 		m.waitForWeb,
 		m.waitForRPC,
+		m.waitForStream,
 	)
 
 	return m.waiter.Wait()
+}
+
+func initLogger(cfg config.AppConfig) zerolog.Logger {
+	return logger.New(logger.LogConfig{
+		Environment: cfg.Environment,
+		LogLevel:    logger.Level(cfg.LogLevel),
+	})
 }
 
 func initRpc(_ rpc.RpcConfig) *grpc.Server {
@@ -100,4 +118,18 @@ func initRpc(_ rpc.RpcConfig) *grpc.Server {
 
 func initMux(_ web.WebConfig) *chi.Mux {
 	return chi.NewMux()
+}
+
+func initJetStream(cfg config.NatsConfig, nc *nats.Conn) (nats.JetStreamContext, error) {
+	js, err := nc.JetStream()
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = js.AddStream(&nats.StreamConfig{
+		Name:     cfg.Stream,
+		Subjects: []string{fmt.Sprintf("%s.>", cfg.Stream)},
+	})
+
+	return js, err
 }
