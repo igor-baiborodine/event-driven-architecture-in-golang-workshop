@@ -1,6 +1,7 @@
 @startuml
 !theme plain
-skinparam dpi 300
+skinparam dpi 400
+skinparam defaultFontName Jetbrains Mono
 
 'actor User as u
 boundary Application as app

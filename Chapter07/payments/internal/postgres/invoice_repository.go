@@ -67,11 +67,11 @@ func (r InvoiceRepository) table(query string) string {
 
 func (r InvoiceRepository) statusToDomain(status string) (models.InvoiceStatus, error) {
 	switch status {
-	case models.InvoicePending.String():
-		return models.InvoicePending, nil
-	case models.InvoicePaid.String():
-		return models.InvoicePaid, nil
+	case models.InvoiceIsPending.String():
+		return models.InvoiceIsPending, nil
+	case models.InvoiceIsPaid.String():
+		return models.InvoiceIsPaid, nil
 	default:
-		return models.InvoiceUnknown, fmt.Errorf("unknown invoice status: %s", status)
+		return models.InvoiceIsUnknown, fmt.Errorf("unknown invoice status: %s", status)
 	}
 }

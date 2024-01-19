@@ -18,6 +18,7 @@ func (OrderCreated) Key() string { return OrderCreatedEvent }
 
 type OrderCanceled struct {
 	CustomerID string
+	PaymentID  string
 }
 
 func (OrderCanceled) Key() string { return OrderCanceledEvent }
@@ -31,7 +32,8 @@ type OrderReadied struct {
 func (OrderReadied) Key() string { return OrderReadiedEvent }
 
 type OrderCompleted struct {
-	InvoiceID string
+	CustomerID string
+	InvoiceID  string
 }
 
 func (OrderCompleted) Key() string { return OrderCompletedEvent }

@@ -8,6 +8,7 @@ import (
 	"eda-in-golang/baskets/internal/grpc"
 	"eda-in-golang/baskets/internal/handlers"
 	"eda-in-golang/baskets/internal/logging"
+	"eda-in-golang/baskets/internal/postgres"
 	"eda-in-golang/baskets/internal/rest"
 	"eda-in-golang/internal/am"
 	"eda-in-golang/internal/ddd"
@@ -43,8 +44,8 @@ func (m *Module) Startup(ctx context.Context, mono monolith.Monolith) (err error
 	if err != nil {
 		return err
 	}
-	stores := grpc.NewStoreRepository(conn)
-	products := grpc.NewProductRepository(conn)
+	stores := postgres.NewStoreCacheRepository("baskets.stores_cache", mono.DB(), grpc.NewStoreRepository(conn))
+	products := postgres.NewProductCacheRepository("baskets.products_cache", mono.DB(), grpc.NewProductRepository(conn))
 	orders := grpc.NewOrderRepository(conn)
 
 	// setup application
@@ -57,11 +58,11 @@ func (m *Module) Startup(ctx context.Context, mono monolith.Monolith) (err error
 		"Order", mono.Logger(),
 	)
 	storeHandlers := logging.LogEventHandlerAccess[ddd.Event](
-		application.NewStoreHandlers(mono.Logger()),
+		application.NewStoreHandlers(stores),
 		"Store", mono.Logger(),
 	)
 	productHandlers := logging.LogEventHandlerAccess[ddd.Event](
-		application.NewProductHandlers(mono.Logger()),
+		application.NewProductHandlers(products),
 		"Product", mono.Logger(),
 	)
 

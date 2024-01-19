@@ -1,6 +1,6 @@
 openapiOptions:
   file:
-    - file: "customerspb/messages.proto"
+    - file: "customerspb/api.proto"
       option:
         info:
           title: Customers
@@ -13,12 +13,12 @@ openapiOptions:
         tags:
           - Customer
         summary: Create a new customer
-    - method: customerspb.CustomersService.GetCustomer
+    - method: customerspb.CustomersService.ChangeSmsNumber
       option:
-        operationId: getCustomer
+        operationId: changeSmsNumber
         tags:
           - Customer
-        summary: Get a customer
+        summary: Change a customers SMS number
     - method: customerspb.CustomersService.EnableCustomer
       option:
         operationId: enableCustomer
@@ -31,3 +31,9 @@ openapiOptions:
         tags:
           - Customer
         summary: Disable a customer
+    - method: customerspb.CustomersService.GetCustomer
+      option:
+        operationId: getCustomer
+        tags:
+          - Customer
+        summary: Get a customer

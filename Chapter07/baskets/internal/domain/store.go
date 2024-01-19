@@ -1,7 +1,6 @@
 package domain
 
 type Store struct {
-	ID       string
-	Name     string
-	Location string
+	ID   string
+	Name string
 }

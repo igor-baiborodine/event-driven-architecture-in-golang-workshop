@@ -74,6 +74,7 @@ func (o *Order) Cancel() error {
 
 	o.AddEvent(OrderCanceledEvent, &OrderCanceled{
 		CustomerID: o.CustomerID,
+		PaymentID:  o.PaymentID,
 	})
 	return nil
 }
@@ -96,7 +97,8 @@ func (o *Order) Complete(invoiceID string) error {
 	// validate status
 
 	o.AddEvent(OrderCompletedEvent, &OrderCompleted{
-		InvoiceID: invoiceID,
+		CustomerID: o.CustomerID,
+		InvoiceID:  invoiceID,
 	})
 
 	return nil

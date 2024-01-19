@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package paymentspb;
 
-import "paymentspb/messages.proto";
-
 service PaymentsService {
   rpc AuthorizePayment(AuthorizePaymentRequest) returns (AuthorizePaymentResponse) {};
   rpc ConfirmPayment(ConfirmPaymentRequest) returns (ConfirmPaymentResponse) {};
@@ -17,7 +15,6 @@ message AuthorizePaymentRequest {
   string customer_id = 1;
   double amount = 2;
 }
-
 message AuthorizePaymentResponse {
   string id = 1;
 }
@@ -25,7 +22,6 @@ message AuthorizePaymentResponse {
 message ConfirmPaymentRequest {
   string id = 1;
 }
-
 message ConfirmPaymentResponse {}
 
 message CreateInvoiceRequest {
