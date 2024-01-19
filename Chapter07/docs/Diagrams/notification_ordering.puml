@@ -2,7 +2,7 @@
 !theme plain
 skinparam dpi 400
 skinparam defaultFontName Jetbrains Mono
-skinparam ParticipantPadding 0
+'skinparam ParticipantPadding 80
 
 participant Producer as prod
 queue "Message Broker" as b

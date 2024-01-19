@@ -3,8 +3,10 @@ package ordering
 import (
 	"context"
 
+	"eda-in-golang/internal/am"
 	"eda-in-golang/internal/ddd"
 	"eda-in-golang/internal/es"
+	"eda-in-golang/internal/jetstream"
 	"eda-in-golang/internal/monolith"
 	pg "eda-in-golang/internal/postgres"
 	"eda-in-golang/internal/registry"
@@ -15,6 +17,7 @@ import (
 	"eda-in-golang/ordering/internal/handlers"
 	"eda-in-golang/ordering/internal/logging"
 	"eda-in-golang/ordering/internal/rest"
+	"eda-in-golang/ordering/orderingpb"
 )
 
 type Module struct{}
@@ -22,11 +25,14 @@ type Module struct{}
 func (Module) Startup(ctx context.Context, mono monolith.Monolith) (err error) {
 	// setup Driven adapters
 	reg := registry.New()
-	err = registrations(reg)
-	if err != nil {
+	if err = registrations(reg); err != nil {
+		return err
+	}
+	if err = orderingpb.Registrations(reg); err != nil {
 		return err
 	}
 	domainDispatcher := ddd.NewEventDispatcher[ddd.AggregateEvent]()
+	eventStream := am.NewEventStream(reg, jetstream.NewStream(mono.Config().Nats.Stream, mono.JS()))
 	aggregateStore := es.AggregateStoreWithMiddleware(
 		pg.NewEventStore("ordering.events", mono.DB(), reg),
 		es.NewEventPublisher(domainDispatcher),
@@ -39,22 +45,15 @@ func (Module) Startup(ctx context.Context, mono monolith.Monolith) (err error) {
 	}
 	customers := grpc.NewCustomerRepository(conn)
 	payments := grpc.NewPaymentRepository(conn)
-	invoices := grpc.NewInvoiceRepository(conn)
 	shopping := grpc.NewShoppingListRepository(conn)
-	notifications := grpc.NewNotificationRepository(conn)
 
 	// setup application
 	var app application.App
 	app = application.New(orders, customers, payments, shopping)
 	app = logging.LogApplicationAccess(app, mono.Logger())
-	// setup application handlers
-	notificationHandlers := logging.LogEventHandlerAccess[ddd.AggregateEvent](
-		application.NewNotificationHandlers(notifications),
-		"Notification", mono.Logger(),
-	)
-	invoiceHandlers := logging.LogEventHandlerAccess[ddd.AggregateEvent](
-		application.NewInvoiceHandlers(invoices),
-		"Invoice", mono.Logger(),
+	integrationEventHandlers := logging.LogEventHandlerAccess[ddd.AggregateEvent](
+		application.NewIntegrationEventHandlers(eventStream),
+		"IntegrationEvents", mono.Logger(),
 	)
 
 	// setup Driver adapters
@@ -67,8 +66,7 @@ func (Module) Startup(ctx context.Context, mono monolith.Monolith) (err error) {
 	if err := rest.RegisterSwagger(mono.Mux()); err != nil {
 		return err
 	}
-	handlers.RegisterNotificationHandlers(notificationHandlers, domainDispatcher)
-	handlers.RegisterInvoiceHandlers(invoiceHandlers, domainDispatcher)
+	handlers.RegisterIntegrationEventHandlers(integrationEventHandlers, domainDispatcher)
 
 	return nil
 }

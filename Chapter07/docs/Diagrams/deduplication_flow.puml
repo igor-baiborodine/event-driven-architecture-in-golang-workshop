@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/activity-diagram-beta
 !theme plain
-'skinparam dpi 400
+skinparam dpi 400
 skinparam defaultFontName Jetbrains Mono
 
 start

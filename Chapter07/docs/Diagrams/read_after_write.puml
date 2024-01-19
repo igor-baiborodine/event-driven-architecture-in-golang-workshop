@@ -2,7 +2,7 @@
 !theme plain
 skinparam dpi 400
 skinparam defaultFontName Jetbrains Mono
-skinparam ParticipantPadding 80
+'skinparam ParticipantPadding 80
 
 actor User as u
 participant Service as s

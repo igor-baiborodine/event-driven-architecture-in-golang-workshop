@@ -4,20 +4,31 @@ set -e
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "mallbots" <<-EOSQL
   CREATE SCHEMA baskets;
 
-  CREATE TABLE baskets.baskets
+  CREATE TABLE baskets.stores_cache
   (
-      id          text NOT NULL,
-      customer_id text NOT NULL,
-      payment_id  text NOT NULL,
-      items       bytea NOT NULL,
-      status      text NOT NULL,
-      created_at  timestamptz NOT NULL DEFAULT NOW(),
-      updated_at  timestamptz NOT NULL DEFAULT NOW(),
+      id         text NOT NULL,
+      name       text NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT NOW(),
+      updated_at timestamptz NOT NULL DEFAULT NOW(),
       PRIMARY KEY (id)
   );
 
-  CREATE TRIGGER created_at_baskets_trgr BEFORE UPDATE ON baskets.baskets FOR EACH ROW EXECUTE PROCEDURE created_at_trigger();
-  CREATE TRIGGER updated_at_baskets_trgr BEFORE UPDATE ON baskets.baskets FOR EACH ROW EXECUTE PROCEDURE updated_at_trigger();
+  CREATE TRIGGER created_at_stores_trgr BEFORE UPDATE ON baskets.stores_cache FOR EACH ROW EXECUTE PROCEDURE created_at_trigger();
+  CREATE TRIGGER updated_at_stores_trgr BEFORE UPDATE ON baskets.stores_cache FOR EACH ROW EXECUTE PROCEDURE updated_at_trigger();
+
+  CREATE TABLE baskets.products_cache
+  (
+      id         text NOT NULL,
+      store_id   text NOT NULL,
+      name       text NOT NULL,
+      price      decimal(9,4) NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT NOW(),
+      updated_at timestamptz NOT NULL DEFAULT NOW(),
+      PRIMARY KEY (id)
+  );
+
+  CREATE TRIGGER created_at_products_trgr BEFORE UPDATE ON baskets.products_cache FOR EACH ROW EXECUTE PROCEDURE created_at_trigger();
+  CREATE TRIGGER updated_at_products_trgr BEFORE UPDATE ON baskets.products_cache FOR EACH ROW EXECUTE PROCEDURE updated_at_trigger();
 
   CREATE TABLE baskets.events
   (

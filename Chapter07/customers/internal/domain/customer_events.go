@@ -2,6 +2,7 @@ package domain
 
 const (
 	CustomerRegisteredEvent = "customers.CustomerRegistered"
+	CustomerSmsChangedEvent = "customers.CustomerSmsChanged"
 	CustomerAuthorizedEvent = "customers.CustomerAuthorized"
 	CustomerEnabledEvent    = "customers.CustomerEnabled"
 	CustomerDisabledEvent   = "customers.CustomerDisabled"
@@ -12,6 +13,12 @@ type CustomerRegistered struct {
 }
 
 func (CustomerRegistered) Key() string { return CustomerRegisteredEvent }
+
+type CustomerSmsChanged struct {
+	Customer *Customer
+}
+
+func (CustomerSmsChanged) Key() string { return CustomerSmsChangedEvent }
 
 type CustomerAuthorized struct {
 	Customer *Customer

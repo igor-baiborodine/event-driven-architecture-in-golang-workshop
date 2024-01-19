@@ -32,8 +32,7 @@ func (r StoreRepository) Find(ctx context.Context, storeID string) (*domain.Stor
 
 func (r StoreRepository) storeToDomain(store *storespb.Store) *domain.Store {
 	return &domain.Store{
-		ID:       store.GetId(),
-		Name:     store.GetName(),
-		Location: store.GetLocation(),
+		ID:   store.GetId(),
+		Name: store.GetName(),
 	}
 }
