@@ -6,6 +6,7 @@ import (
 	"github.com/stackus/errors"
 
 	"eda-in-golang/baskets/internal/domain"
+	"eda-in-golang/internal/ddd"
 )
 
 type (
@@ -49,28 +50,31 @@ type (
 	}
 
 	Application struct {
-		baskets  domain.BasketRepository
-		stores   domain.StoreRepository
-		products domain.ProductRepository
-		orders   domain.OrderRepository
+		baskets   domain.BasketRepository
+		stores    domain.StoreRepository
+		products  domain.ProductRepository
+		publisher ddd.EventPublisher[ddd.Event]
 	}
 )
 
 var _ App = (*Application)(nil)
 
-func New(baskets domain.BasketRepository, stores domain.StoreRepository, products domain.ProductRepository,
-	orders domain.OrderRepository,
-) *Application {
+func New(baskets domain.BasketRepository, stores domain.StoreRepository, products domain.ProductRepository, publisher ddd.EventPublisher[ddd.Event]) *Application {
 	return &Application{
-		baskets:  baskets,
-		stores:   stores,
-		products: products,
-		orders:   orders,
+		baskets:   baskets,
+		stores:    stores,
+		products:  products,
+		publisher: publisher,
 	}
 }
 
 func (a Application) StartBasket(ctx context.Context, start StartBasket) error {
-	basket, err := domain.StartBasket(start.ID, start.CustomerID)
+	basket, err := a.baskets.Load(ctx, start.ID)
+	if err != nil {
+		return err
+	}
+
+	event, err := basket.Start(start.CustomerID)
 	if err != nil {
 		return err
 	}
@@ -79,7 +83,7 @@ func (a Application) StartBasket(ctx context.Context, start StartBasket) error {
 		return err
 	}
 
-	return nil
+	return a.publisher.Publish(ctx, event)
 }
 
 func (a Application) CancelBasket(ctx context.Context, cancel CancelBasket) error {
@@ -88,7 +92,7 @@ func (a Application) CancelBasket(ctx context.Context, cancel CancelBasket) erro
 		return err
 	}
 
-	err = basket.Cancel()
+	event, err := basket.Cancel()
 	if err != nil {
 		return err
 	}
@@ -97,7 +101,7 @@ func (a Application) CancelBasket(ctx context.Context, cancel CancelBasket) erro
 		return err
 	}
 
-	return nil
+	return a.publisher.Publish(ctx, event)
 }
 
 func (a Application) CheckoutBasket(ctx context.Context, checkout CheckoutBasket) error {
@@ -106,7 +110,7 @@ func (a Application) CheckoutBasket(ctx context.Context, checkout CheckoutBasket
 		return err
 	}
 
-	err = basket.Checkout(checkout.PaymentID)
+	event, err := basket.Checkout(checkout.PaymentID)
 	if err != nil {
 		return errors.Wrap(err, "baskets checkout")
 	}
@@ -115,7 +119,7 @@ func (a Application) CheckoutBasket(ctx context.Context, checkout CheckoutBasket
 		return errors.Wrap(err, "basket checkout")
 	}
 
-	return nil
+	return a.publisher.Publish(ctx, event)
 }
 
 func (a Application) AddItem(ctx context.Context, add AddItem) error {

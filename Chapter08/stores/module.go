@@ -33,7 +33,7 @@ func (m *Module) Startup(ctx context.Context, mono monolith.Monolith) (err error
 	if err = storespb.Registrations(reg); err != nil {
 		return err
 	}
-	eventStream := am.NewEventStream(reg, jetstream.NewStream(mono.Config().Nats.Stream, mono.JS()))
+	eventStream := am.NewEventStream(reg, jetstream.NewStream(mono.Config().Nats.Stream, mono.JS(), mono.Logger()))
 	domainDispatcher := ddd.NewEventDispatcher[ddd.AggregateEvent]()
 	aggregateStore := es.AggregateStoreWithMiddleware(
 		pg.NewEventStore("stores.events", mono.DB(), reg),
@@ -58,9 +58,9 @@ func (m *Module) Startup(ctx context.Context, mono monolith.Monolith) (err error
 		application.NewMallHandlers(mall),
 		"Mall", mono.Logger(),
 	)
-	integrationEventHandlers := logging.LogEventHandlerAccess[ddd.AggregateEvent](
-		application.NewIntegrationEventHandlers(eventStream),
-		"IntegrationEvents", mono.Logger(),
+	domainEventHandlers := logging.LogEventHandlerAccess[ddd.AggregateEvent](
+		handlers.NewDomainEventHandlers(eventStream),
+		"DomainEvents", mono.Logger(),
 	)
 
 	// setup Driver adapters
@@ -75,7 +75,7 @@ func (m *Module) Startup(ctx context.Context, mono monolith.Monolith) (err error
 	}
 	handlers.RegisterCatalogHandlers(catalogHandlers, domainDispatcher)
 	handlers.RegisterMallHandlers(mallHandlers, domainDispatcher)
-	handlers.RegisterIntegrationEventHandlers(integrationEventHandlers, domainDispatcher)
+	handlers.RegisterDomainEventHandlers(domainDispatcher, domainEventHandlers)
 	if err = storespb.RegisterAsyncAPI(mono.Mux()); err != nil {
 		return err
 	}
