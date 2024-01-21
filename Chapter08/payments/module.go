@@ -15,6 +15,7 @@ import (
 	"eda-in-golang/payments/internal/logging"
 	"eda-in-golang/payments/internal/postgres"
 	"eda-in-golang/payments/internal/rest"
+	"eda-in-golang/payments/paymentspb"
 )
 
 type Module struct{}
@@ -25,7 +26,12 @@ func (m Module) Startup(ctx context.Context, mono monolith.Monolith) (err error)
 	if err = orderingpb.Registrations(reg); err != nil {
 		return err
 	}
-	eventStream := am.NewEventStream(reg, jetstream.NewStream(mono.Config().Nats.Stream, mono.JS()))
+	if err = paymentspb.Registrations(reg); err != nil {
+		return err
+	}
+	stream := jetstream.NewStream(mono.Config().Nats.Stream, mono.JS(), mono.Logger())
+	eventStream := am.NewEventStream(reg, stream)
+	commandStream := am.NewCommandStream(reg, stream)
 	domainDispatcher := ddd.NewEventDispatcher[ddd.Event]()
 	invoices := postgres.NewInvoiceRepository("payments.invoices", mono.DB())
 	payments := postgres.NewPaymentRepository("payments.payments", mono.DB())
@@ -35,29 +41,36 @@ func (m Module) Startup(ctx context.Context, mono monolith.Monolith) (err error)
 		application.New(invoices, payments, domainDispatcher),
 		mono.Logger(),
 	)
-	orderHandlers := logging.LogEventHandlerAccess[ddd.Event](
-		application.NewOrderHandlers(app),
-		"Order", mono.Logger(),
+	domainEventHandlers := logging.LogEventHandlerAccess[ddd.Event](
+		handlers.NewDomainEventHandlers(eventStream),
+		"DomainEvents", mono.Logger(),
 	)
 	integrationEventHandlers := logging.LogEventHandlerAccess[ddd.Event](
-		application.NewIntegrationEventHandlers(eventStream),
+		handlers.NewIntegrationHandlers(app),
 		"IntegrationEvents", mono.Logger(),
+	)
+	commandHandlers := logging.LogCommandHandlerAccess[ddd.Command](
+		handlers.NewCommandHandlers(app),
+		"Commands", mono.Logger(),
 	)
 
 	// setup Driver adapters
-	if err := grpc.RegisterServer(ctx, app, mono.RPC()); err != nil {
+	if err = grpc.RegisterServer(ctx, app, mono.RPC()); err != nil {
 		return err
 	}
-	if err := rest.RegisterGateway(ctx, mono.Mux(), mono.Config().Rpc.Address()); err != nil {
+	if err = rest.RegisterGateway(ctx, mono.Mux(), mono.Config().Rpc.Address()); err != nil {
 		return err
 	}
-	if err := rest.RegisterSwagger(mono.Mux()); err != nil {
+	if err = rest.RegisterSwagger(mono.Mux()); err != nil {
 		return err
 	}
-	if err = handlers.RegisterOrderHandlers(orderHandlers, eventStream); err != nil {
+	if err = handlers.RegisterIntegrationEventHandlers(eventStream, integrationEventHandlers); err != nil {
 		return err
 	}
-	handlers.RegisterIntegrationEventHandlers(integrationEventHandlers, domainDispatcher)
+	handlers.RegisterDomainEventHandlers(domainDispatcher, domainEventHandlers)
+	if err = handlers.RegisterCommandHandlers(commandStream, commandHandlers); err != nil {
+		return err
+	}
 
-	return nil
+	return
 }

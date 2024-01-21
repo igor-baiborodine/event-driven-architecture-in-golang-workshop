@@ -3,6 +3,7 @@ package depot
 import (
 	"context"
 
+	"eda-in-golang/depot/depotpb"
 	"eda-in-golang/depot/internal/application"
 	"eda-in-golang/depot/internal/grpc"
 	"eda-in-golang/depot/internal/handlers"
@@ -25,7 +26,12 @@ func (Module) Startup(ctx context.Context, mono monolith.Monolith) (err error) {
 	if err = storespb.Registrations(reg); err != nil {
 		return err
 	}
-	eventStream := am.NewEventStream(reg, jetstream.NewStream(mono.Config().Nats.Stream, mono.JS()))
+	if err = depotpb.Registrations(reg); err != nil {
+		return err
+	}
+	stream := jetstream.NewStream(mono.Config().Nats.Stream, mono.JS(), mono.Logger())
+	eventStream := am.NewEventStream(reg, stream)
+	commandStream := am.NewCommandStream(reg, stream)
 	domainDispatcher := ddd.NewEventDispatcher[ddd.AggregateEvent]()
 	shoppingLists := postgres.NewShoppingListRepository("depot.shopping_lists", mono.DB())
 	conn, err := grpc.Dial(ctx, mono.Config().Rpc.Address())
@@ -41,17 +47,17 @@ func (Module) Startup(ctx context.Context, mono monolith.Monolith) (err error) {
 		application.New(shoppingLists, stores, products, domainDispatcher),
 		mono.Logger(),
 	)
-	orderHandlers := logging.LogEventHandlerAccess[ddd.AggregateEvent](
-		application.NewOrderHandlers(orders),
-		"Order", mono.Logger(),
+	domainEventHandlers := logging.LogEventHandlerAccess[ddd.AggregateEvent](
+		handlers.NewDomainEventHandlers(orders),
+		"DomainEvents", mono.Logger(),
 	)
-	storeHandlers := logging.LogEventHandlerAccess[ddd.Event](
-		application.NewStoreHandlers(stores),
-		"Store", mono.Logger(),
+	integrationEventHandlers := logging.LogEventHandlerAccess[ddd.Event](
+		handlers.NewIntegrationEventHandlers(stores, products),
+		"IntegrationEvents", mono.Logger(),
 	)
-	productHandlers := logging.LogEventHandlerAccess[ddd.Event](
-		application.NewProductHandlers(products),
-		"Product", mono.Logger(),
+	commandHandlers := logging.LogCommandHandlerAccess[ddd.Command](
+		handlers.NewCommandHandlers(app),
+		"Commands", mono.Logger(),
 	)
 
 	// setup Driver adapters
@@ -64,11 +70,11 @@ func (Module) Startup(ctx context.Context, mono monolith.Monolith) (err error) {
 	if err := rest.RegisterSwagger(mono.Mux()); err != nil {
 		return err
 	}
-	handlers.RegisterOrderHandlers(orderHandlers, domainDispatcher)
-	if err = handlers.RegisterStoreHandlers(storeHandlers, eventStream); err != nil {
+	handlers.RegisterDomainEventHandlers(domainDispatcher, domainEventHandlers)
+	if err = handlers.RegisterIntegrationEventHandlers(eventStream, integrationEventHandlers); err != nil {
 		return err
 	}
-	if err = handlers.RegisterProductHandlers(productHandlers, eventStream); err != nil {
+	if err = handlers.RegisterCommandHandlers(commandStream, commandHandlers); err != nil {
 		return err
 	}
 
