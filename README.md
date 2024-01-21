@@ -16,7 +16,7 @@ but is updated and executed against the latest versions of dependent Go packages
 - [X] 7.[Event-Carried State Transfer](/Chapter07) ([`f4c47c1`](https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/commit/f4c47c10127080980c8de2839841ed149a263eb1))
 - [X] 8.[Message Workflows](/Chapter08) ([`8edfc5b`](https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/commit/8edfc5bce342e4b854a171b520c34600a4749b3d))
 - [X] 9.[Transactional Messaging](/Chapter09) ([`40e5d9f`](https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/commit/40e5d9ff754b486b642c2706d12db92c7e6ac261))
-- [ ] 10.Testing
+- [ ] 10.[Testing](/Chapter10)
 - [ ] 11.Deploying Applications to the Cloud
 - [ ] 12.Monitoring and Observability
 
