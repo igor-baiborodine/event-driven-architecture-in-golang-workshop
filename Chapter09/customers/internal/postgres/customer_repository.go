@@ -2,20 +2,20 @@ package postgres
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 
 	"eda-in-golang/customers/internal/domain"
+	"eda-in-golang/internal/postgres"
 )
 
 type CustomerRepository struct {
 	tableName string
-	db        *sql.DB
+	db        postgres.DB
 }
 
 var _ domain.CustomerRepository = (*CustomerRepository)(nil)
 
-func NewCustomerRepository(tableName string, db *sql.DB) CustomerRepository {
+func NewCustomerRepository(tableName string, db postgres.DB) CustomerRepository {
 	return CustomerRepository{
 		tableName: tableName,
 		db:        db,

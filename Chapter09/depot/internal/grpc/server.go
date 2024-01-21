@@ -18,13 +18,24 @@ type server struct {
 
 var _ depotpb.DepotServiceServer = (*server)(nil)
 
-func Register(_ context.Context, app application.App, registrar grpc.ServiceRegistrar) error {
+func Register(app application.App, registrar grpc.ServiceRegistrar) error {
 	depotpb.RegisterDepotServiceServer(registrar, server{app: app})
 	return nil
 }
 
-func (s server) CreateShoppingList(ctx context.Context, request *depotpb.CreateShoppingListRequest,
-) (*depotpb.CreateShoppingListResponse, error) {
+func (s server) CreateShoppingList(ctx context.Context, request *depotpb.CreateShoppingListRequest) (*depotpb.CreateShoppingListResponse, error) {
+	/*
+
+		ctx, cleanup := s.container.Scoped(ctx) //di.Scoped(ctx)
+		defer cleanup()
+		// ...
+
+		app := di.Get(ctx, "app").(application.App)
+
+		err := app.???(ctx)
+		return &depotpb.CreateShoppingListResponse{Id: id}, err
+	*/
+
 	id := uuid.New().String()
 
 	items := make([]commands.OrderItem, 0, len(request.GetItems()))
@@ -41,8 +52,7 @@ func (s server) CreateShoppingList(ctx context.Context, request *depotpb.CreateS
 	return &depotpb.CreateShoppingListResponse{Id: id}, err
 }
 
-func (s server) CancelShoppingList(ctx context.Context, request *depotpb.CancelShoppingListRequest,
-) (*depotpb.CancelShoppingListResponse, error) {
+func (s server) CancelShoppingList(ctx context.Context, request *depotpb.CancelShoppingListRequest) (*depotpb.CancelShoppingListResponse, error) {
 	err := s.app.CancelShoppingList(ctx, commands.CancelShoppingList{
 		ID: request.GetId(),
 	})
@@ -50,8 +60,7 @@ func (s server) CancelShoppingList(ctx context.Context, request *depotpb.CancelS
 	return &depotpb.CancelShoppingListResponse{}, err
 }
 
-func (s server) AssignShoppingList(ctx context.Context, request *depotpb.AssignShoppingListRequest,
-) (*depotpb.AssignShoppingListResponse, error) {
+func (s server) AssignShoppingList(ctx context.Context, request *depotpb.AssignShoppingListRequest) (*depotpb.AssignShoppingListResponse, error) {
 	err := s.app.AssignShoppingList(ctx, commands.AssignShoppingList{
 		ID:    request.GetId(),
 		BotID: request.GetBotId(),
@@ -59,8 +68,7 @@ func (s server) AssignShoppingList(ctx context.Context, request *depotpb.AssignS
 	return &depotpb.AssignShoppingListResponse{}, err
 }
 
-func (s server) CompleteShoppingList(ctx context.Context, request *depotpb.CompleteShoppingListRequest,
-) (*depotpb.CompleteShoppingListResponse, error) {
+func (s server) CompleteShoppingList(ctx context.Context, request *depotpb.CompleteShoppingListRequest) (*depotpb.CompleteShoppingListResponse, error) {
 	err := s.app.CompleteShoppingList(ctx, commands.CompleteShoppingList{ID: request.GetId()})
 	return &depotpb.CompleteShoppingListResponse{}, err
 }

@@ -2,23 +2,23 @@ package postgres
 
 import (
 	"context"
-	"database/sql"
 	"encoding/json"
 	"fmt"
 
 	"github.com/stackus/errors"
 
 	"eda-in-golang/depot/internal/domain"
+	"eda-in-golang/internal/postgres"
 )
 
 type ShoppingListRepository struct {
 	tableName string
-	db        *sql.DB
+	db        postgres.DB
 }
 
 var _ domain.ShoppingListRepository = (*ShoppingListRepository)(nil)
 
-func NewShoppingListRepository(tableName string, db *sql.DB) ShoppingListRepository {
+func NewShoppingListRepository(tableName string, db postgres.DB) ShoppingListRepository {
 	return ShoppingListRepository{
 		tableName: tableName,
 		db:        db,

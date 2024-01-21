@@ -2,6 +2,13 @@ syntax = "proto3";
 
 package depotpb;
 
+// Events
+
+message ShoppingListCompleted {
+  string id = 1;
+  string order_id = 2;
+}
+
 // Commands
 
 message CreateShoppingList {
