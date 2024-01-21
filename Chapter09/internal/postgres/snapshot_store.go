@@ -14,13 +14,13 @@ import (
 type SnapshotStore struct {
 	es.AggregateStore
 	tableName string
-	db        *sql.DB
+	db        DB
 	registry  registry.Registry
 }
 
 var _ es.AggregateStore = (*SnapshotStore)(nil)
 
-func NewSnapshotStore(tableName string, db *sql.DB, registry registry.Registry) es.AggregateStoreMiddleware {
+func NewSnapshotStore(tableName string, db DB, registry registry.Registry) es.AggregateStoreMiddleware {
 	snapshots := SnapshotStore{
 		tableName: tableName,
 		db:        db,

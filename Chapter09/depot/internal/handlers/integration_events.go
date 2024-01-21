@@ -39,8 +39,6 @@ func RegisterIntegrationEventHandlers(subscriber am.EventSubscriber, handlers dd
 	return subscriber.Subscribe(storespb.ProductAggregateChannel, evtMsgHandler, am.MessageFilter{
 		storespb.ProductAddedEvent,
 		storespb.ProductRebrandedEvent,
-		storespb.ProductPriceIncreasedEvent,
-		storespb.ProductPriceDecreasedEvent,
 		storespb.ProductRemovedEvent,
 	}, am.GroupName("depot-products"))
 }

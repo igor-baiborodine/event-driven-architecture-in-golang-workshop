@@ -15,14 +15,14 @@ type domainHandlers[T ddd.AggregateEvent] struct {
 
 var _ ddd.EventHandler[ddd.AggregateEvent] = (*domainHandlers[ddd.AggregateEvent])(nil)
 
-func NewDomainEventHandlers(publisher am.MessagePublisher[ddd.Event]) *domainHandlers[ddd.AggregateEvent] {
+func NewDomainEventHandlers(publisher am.MessagePublisher[ddd.Event]) ddd.EventHandler[ddd.AggregateEvent] {
 	return &domainHandlers[ddd.AggregateEvent]{
 		publisher: publisher,
 	}
 }
 
-func RegisterDomainEventHandlers(eventHandlers ddd.EventHandler[ddd.AggregateEvent], domainSubscriber ddd.EventSubscriber[ddd.AggregateEvent]) {
-	domainSubscriber.Subscribe(eventHandlers,
+func RegisterDomainEventHandlers(subscriber ddd.EventSubscriber[ddd.AggregateEvent], handlers ddd.EventHandler[ddd.AggregateEvent]) {
+	subscriber.Subscribe(handlers,
 		domain.CustomerRegisteredEvent,
 		domain.CustomerSmsChangedEvent,
 		domain.CustomerEnabledEvent,

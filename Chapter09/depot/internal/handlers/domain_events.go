@@ -3,24 +3,26 @@ package handlers
 import (
 	"context"
 
+	"eda-in-golang/depot/depotpb"
 	"eda-in-golang/depot/internal/domain"
+	"eda-in-golang/internal/am"
 	"eda-in-golang/internal/ddd"
 )
 
 type domainHandlers[T ddd.AggregateEvent] struct {
-	orders domain.OrderRepository
+	publisher am.MessagePublisher[ddd.Event]
 }
 
 var _ ddd.EventHandler[ddd.AggregateEvent] = (*domainHandlers[ddd.AggregateEvent])(nil)
 
-func NewDomainEventHandlers(orders domain.OrderRepository) ddd.EventHandler[ddd.AggregateEvent] {
+func NewDomainEventHandlers(publisher am.MessagePublisher[ddd.Event]) ddd.EventHandler[ddd.AggregateEvent] {
 	return domainHandlers[ddd.AggregateEvent]{
-		orders: orders,
+		publisher: publisher,
 	}
 }
 
-func RegisterDomainEventHandlers(subscriber ddd.EventSubscriber[ddd.AggregateEvent], handler ddd.EventHandler[ddd.AggregateEvent]) {
-	subscriber.Subscribe(handler, domain.ShoppingListCompletedEvent)
+func RegisterDomainEventHandlers(subscriber ddd.EventSubscriber[ddd.AggregateEvent], handlers ddd.EventHandler[ddd.AggregateEvent]) {
+	subscriber.Subscribe(handlers, domain.ShoppingListCompletedEvent)
 }
 
 func (h domainHandlers[T]) HandleEvent(ctx context.Context, event T) error {
@@ -33,5 +35,9 @@ func (h domainHandlers[T]) HandleEvent(ctx context.Context, event T) error {
 
 func (h domainHandlers[T]) onShoppingListCompleted(ctx context.Context, event ddd.AggregateEvent) error {
 	completed := event.Payload().(*domain.ShoppingListCompleted)
-	return h.orders.Ready(ctx, completed.ShoppingList.OrderID)
+
+	return h.publisher.Publish(ctx, depotpb.ShoppingListAggregateChannel, ddd.NewEvent(depotpb.ShoppingListCompletedEvent, &depotpb.ShoppingListCompleted{
+		Id:      event.AggregateID(),
+		OrderId: completed.ShoppingList.OrderID,
+	}))
 }
