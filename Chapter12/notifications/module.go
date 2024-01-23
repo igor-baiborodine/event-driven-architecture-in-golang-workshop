@@ -5,14 +5,18 @@ import (
 
 	"eda-in-golang/customers/customerspb"
 	"eda-in-golang/internal/am"
-	"eda-in-golang/internal/ddd"
+	"eda-in-golang/internal/amotel"
+	"eda-in-golang/internal/amprom"
 	"eda-in-golang/internal/jetstream"
+	pg "eda-in-golang/internal/postgres"
+	"eda-in-golang/internal/postgresotel"
 	"eda-in-golang/internal/registry"
 	"eda-in-golang/internal/system"
+	"eda-in-golang/internal/tm"
 	"eda-in-golang/notifications/internal/application"
+	"eda-in-golang/notifications/internal/constants"
 	"eda-in-golang/notifications/internal/grpc"
 	"eda-in-golang/notifications/internal/handlers"
-	"eda-in-golang/notifications/internal/logging"
 	"eda-in-golang/notifications/internal/postgres"
 	"eda-in-golang/ordering/orderingpb"
 )
@@ -32,28 +36,30 @@ func Root(ctx context.Context, svc system.Service) (err error) {
 	if err = orderingpb.Registrations(reg); err != nil {
 		return err
 	}
-	eventStream := am.NewEventStream(reg, jetstream.NewStream(svc.Config().Nats.Stream, svc.JS(), svc.Logger()))
-	conn, err := grpc.Dial(ctx, svc.Config().Rpc.Service("CUSTOMERS"))
-	if err != nil {
-		return err
-	}
-	customers := postgres.NewCustomerCacheRepository("notifications.customers_cache", svc.DB(), grpc.NewCustomerRepository(conn))
+	inboxStore := pg.NewInboxStore(constants.InboxTableName, svc.DB())
+	messageSubscriber := am.NewMessageSubscriber(
+		jetstream.NewStream(svc.Config().Nats.Stream, svc.JS(), svc.Logger()),
+		amotel.OtelMessageContextExtractor(),
+		amprom.ReceivedMessagesCounter(constants.ServiceName),
+	)
+	customers := postgres.NewCustomerCacheRepository(
+		constants.CustomersCacheTableName,
+		postgresotel.Trace(svc.DB()),
+		grpc.NewCustomerRepository(svc.Config().Rpc.Service(constants.CustomersServiceName)),
+	)
 
 	// setup application
-	app := logging.LogApplicationAccess(
-		application.New(customers),
-		svc.Logger(),
-	)
-	integrationEventHandlers := logging.LogEventHandlerAccess[ddd.Event](
-		handlers.NewIntegrationEventHandlers(app, customers),
-		"IntegrationEvents", svc.Logger(),
+	app := application.New(customers)
+	integrationEventHandlers := handlers.NewIntegrationEventHandlers(
+		reg, app, customers,
+		tm.InboxHandler(inboxStore),
 	)
 
 	// setup Driver adapters
 	if err := grpc.RegisterServer(ctx, app, svc.RPC()); err != nil {
 		return err
 	}
-	if err = handlers.RegisterIntegrationEventHandlers(eventStream, integrationEventHandlers); err != nil {
+	if err = handlers.RegisterIntegrationEventHandlers(messageSubscriber, integrationEventHandlers); err != nil {
 		return err
 	}
 

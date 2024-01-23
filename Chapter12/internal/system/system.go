@@ -13,7 +13,14 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/nats-io/nats.go"
 	"github.com/pressly/goose/v3"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/rs/zerolog"
+	"github.com/stackus/errors"
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
+	"go.opentelemetry.io/otel/propagation"
+	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -32,10 +39,13 @@ type System struct {
 	rpc    *grpc.Server
 	waiter waiter.Waiter
 	logger zerolog.Logger
+	tp     *sdktrace.TracerProvider
 }
 
 func NewSystem(cfg config.AppConfig) (*System, error) {
 	s := &System{cfg: cfg}
+
+	s.initWaiter()
 
 	if err := s.initDB(); err != nil {
 		return nil, err
@@ -45,12 +55,34 @@ func NewSystem(cfg config.AppConfig) (*System, error) {
 		return nil, err
 	}
 
+	if err := s.initOpenTelemetry(); err != nil {
+		return nil, err
+	}
+
 	s.initMux()
 	s.initRpc()
-	s.initWaiter()
 	s.initLogger()
 
 	return s, nil
+}
+
+func (s *System) initOpenTelemetry() error {
+	exporter, err := otlptracegrpc.New(context.Background())
+	if err != nil {
+		return err
+	}
+
+	s.tp = sdktrace.NewTracerProvider(sdktrace.WithBatcher(exporter))
+	otel.SetTracerProvider(s.tp)
+	otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(propagation.TraceContext{}, propagation.Baggage{}))
+
+	s.waiter.Cleanup(func() {
+		if err := s.tp.Shutdown(context.Background()); err != nil {
+			s.logger.Error().Err(err).Msg("ran into an issue shutting down the tracer provider")
+		}
+	})
+
+	return nil
 }
 
 func (s *System) Config() config.AppConfig {
@@ -112,8 +144,8 @@ func (s *System) Logger() zerolog.Logger {
 
 func (s *System) initMux() {
 	s.mux = chi.NewMux()
-
 	s.mux.Use(middleware.Heartbeat("/liveness"))
+	s.mux.Method("GET", "/metrics", promhttp.Handler())
 }
 
 func (s *System) Mux() *chi.Mux {
@@ -121,7 +153,16 @@ func (s *System) Mux() *chi.Mux {
 }
 
 func (s *System) initRpc() {
-	s.rpc = grpc.NewServer()
+	s.rpc = grpc.NewServer(
+		grpc.ChainUnaryInterceptor(
+			otelgrpc.UnaryServerInterceptor(),
+			serverErrorUnaryInterceptor(),
+		),
+		// If there are streaming endpoints also add
+		// grpc.StreamInterceptor(
+		// 	otelgrpc.StreamServerInterceptor(),
+		// ),
+	)
 	reflection.Register(s.rpc)
 }
 
@@ -220,4 +261,11 @@ func (s *System) WaitForStream(ctx context.Context) error {
 		return s.nc.Drain()
 	})
 	return group.Wait()
+}
+
+func serverErrorUnaryInterceptor() grpc.UnaryServerInterceptor {
+	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+		resp, err = handler(ctx, req)
+		return resp, errors.SendGRPCError(err)
+	}
 }

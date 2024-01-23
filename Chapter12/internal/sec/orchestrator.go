@@ -2,11 +2,15 @@ package sec
 
 import (
 	"context"
+	"time"
 
 	"github.com/stackus/errors"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 
 	"eda-in-golang/internal/am"
 	"eda-in-golang/internal/ddd"
+	"eda-in-golang/internal/errorsotel"
 )
 
 type (
@@ -57,7 +61,24 @@ func (o orchestrator[T]) ReplyTopic() string {
 	return o.saga.ReplyTopic()
 }
 
-func (o orchestrator[T]) HandleReply(ctx context.Context, reply ddd.Reply) error {
+func (o orchestrator[T]) HandleReply(ctx context.Context, reply ddd.Reply) (err error) {
+	span := trace.SpanFromContext(ctx)
+	defer func(started time.Time) {
+		if err != nil {
+			span.AddEvent(
+				"Encountered an error handling reply",
+				trace.WithAttributes(errorsotel.ErrAttrs(err)...),
+			)
+		}
+		span.AddEvent("Handled reply", trace.WithAttributes(
+			attribute.Int64("TookMS", time.Since(started).Milliseconds()),
+		))
+	}(time.Now())
+
+	span.AddEvent("Handling reply", trace.WithAttributes(
+		attribute.String("Reply", reply.ReplyName()),
+	))
+
 	sagaID, sagaName := o.getSagaInfoFromReply(reply)
 	if sagaID == "" || sagaName == "" || sagaName != o.saga.Name() {
 		// returning nil to drop bad replies
@@ -103,10 +124,31 @@ func (o orchestrator[T]) handle(ctx context.Context, sagaCtx *SagaContext[T], re
 	}
 }
 
-func (o orchestrator[T]) execute(ctx context.Context, sagaCtx *SagaContext[T]) stepResult[T] {
+func (o orchestrator[T]) execute(ctx context.Context, sagaCtx *SagaContext[T]) (result stepResult[T]) {
 	var delta = 1
 	var direction = 1
 	var step SagaStep[T]
+
+	span := trace.SpanFromContext(ctx)
+
+	span.SetAttributes(
+		attribute.String("SagaID", sagaCtx.ID),
+		attribute.String("SagaName", o.saga.Name()),
+	)
+
+	span.AddEvent("Executing next saga step", trace.WithAttributes(
+		attribute.Int64("saga.step", int64(sagaCtx.Step)),
+		attribute.Bool("saga.compensating", sagaCtx.Compensating),
+		attribute.Bool("saga.done", sagaCtx.Done),
+	))
+
+	defer func() {
+		span.AddEvent("Execution results", trace.WithAttributes(
+			attribute.Int64("saga.next_step", int64(result.ctx.Step)),
+			attribute.Bool("saga.compensating", result.ctx.Compensating),
+			attribute.Bool("saga.done", result.ctx.Done),
+		))
+	}()
 
 	if sagaCtx.Compensating {
 		direction = -1
@@ -150,7 +192,7 @@ func (o orchestrator[T]) publishCommand(ctx context.Context, result stepResult[T
 	cmd.Metadata().Set(SagaCommandIDHdr, result.ctx.ID)
 	cmd.Metadata().Set(SagaCommandNameHdr, o.saga.Name())
 
-	return o.publisher.Publish(ctx, cmd.Destination(), cmd)
+	return o.publisher.Publish(ctx, result.destination, cmd)
 }
 
 func (o orchestrator[T]) getSagaInfoFromReply(reply ddd.Reply) (string, string) {

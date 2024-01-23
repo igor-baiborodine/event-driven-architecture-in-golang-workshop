@@ -38,4 +38,3 @@ build-services:
 	docker build -t mallbots-payments --file docker/Dockerfile.microservices --build-arg=service=payments .
 	docker build -t mallbots-search --file docker/Dockerfile.microservices --build-arg=service=search .
 	docker build -t mallbots-stores --file docker/Dockerfile.microservices --build-arg=service=stores .
-

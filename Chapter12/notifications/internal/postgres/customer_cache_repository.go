@@ -5,23 +5,22 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/jackc/pgconn"
-	"github.com/jackc/pgerrcode"
 	"github.com/stackus/errors"
 
+	"eda-in-golang/internal/postgres"
 	"eda-in-golang/notifications/internal/application"
 	"eda-in-golang/notifications/internal/models"
 )
 
 type CustomerCacheRepository struct {
 	tableName string
-	db        *sql.DB
+	db        postgres.DB
 	fallback  application.CustomerRepository
 }
 
 var _ application.CustomerCacheRepository = (*CustomerCacheRepository)(nil)
 
-func NewCustomerCacheRepository(tableName string, db *sql.DB, fallback application.CustomerRepository) CustomerCacheRepository {
+func NewCustomerCacheRepository(tableName string, db postgres.DB, fallback application.CustomerRepository) CustomerCacheRepository {
 	return CustomerCacheRepository{
 		tableName: tableName,
 		db:        db,
@@ -30,17 +29,9 @@ func NewCustomerCacheRepository(tableName string, db *sql.DB, fallback applicati
 }
 
 func (r CustomerCacheRepository) Add(ctx context.Context, customerID, name, smsNumber string) error {
-	const query = "INSERT INTO %s (id, name, sms_number) VALUES ($1, $2, $3)"
+	const query = "INSERT INTO %s (id, NAME, sms_number) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING"
 
 	_, err := r.db.ExecContext(ctx, r.table(query), customerID, name, smsNumber)
-	if err != nil {
-		var pgErr *pgconn.PgError
-		if errors.As(err, &pgErr) {
-			if pgErr.Code == pgerrcode.UniqueViolation {
-				return nil
-			}
-		}
-	}
 
 	return err
 }

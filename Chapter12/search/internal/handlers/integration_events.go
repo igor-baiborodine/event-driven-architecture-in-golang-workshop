@@ -2,10 +2,16 @@ package handlers
 
 import (
 	"context"
+	"time"
+
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 
 	"eda-in-golang/customers/customerspb"
 	"eda-in-golang/internal/am"
 	"eda-in-golang/internal/ddd"
+	"eda-in-golang/internal/errorsotel"
+	"eda-in-golang/internal/registry"
 	"eda-in-golang/ordering/orderingpb"
 	"eda-in-golang/search/internal/application"
 	"eda-in-golang/search/internal/models"
@@ -21,28 +27,24 @@ type integrationHandlers[T ddd.Event] struct {
 
 var _ ddd.EventHandler[ddd.Event] = (*integrationHandlers[ddd.Event])(nil)
 
-func NewIntegrationEventHandlers(orders application.OrderRepository, customers application.CustomerCacheRepository,
-	stores application.StoreCacheRepository, products application.ProductCacheRepository) ddd.EventHandler[ddd.Event] {
-	return integrationHandlers[ddd.Event]{
+func NewIntegrationEventHandlers(reg registry.Registry, orders application.OrderRepository, customers application.CustomerCacheRepository,
+	stores application.StoreCacheRepository, products application.ProductCacheRepository, mws ...am.MessageHandlerMiddleware) am.MessageHandler {
+	return am.NewEventHandler(reg, integrationHandlers[ddd.Event]{
 		orders:    orders,
 		customers: customers,
 		products:  products,
 		stores:    stores,
-	}
+	}, mws...)
 }
 
-func RegisterIntegrationEventHandlers(subscriber am.EventSubscriber, handlers ddd.EventHandler[ddd.Event]) (err error) {
-	evtMsgHandler := am.MessageHandlerFunc[am.IncomingEventMessage](func(ctx context.Context, eventMsg am.IncomingEventMessage) error {
-		return handlers.HandleEvent(ctx, eventMsg)
-	})
-
-	if _, err = subscriber.Subscribe(customerspb.CustomerAggregateChannel, evtMsgHandler, am.MessageFilter{
+func RegisterIntegrationEventHandlers(subscriber am.MessageSubscriber, handlers am.MessageHandler) (err error) {
+	if _, err = subscriber.Subscribe(customerspb.CustomerAggregateChannel, handlers, am.MessageFilter{
 		customerspb.CustomerRegisteredEvent,
 	}, am.GroupName("search-customers")); err != nil {
 		return
 	}
 
-	if _, err = subscriber.Subscribe(orderingpb.OrderAggregateChannel, evtMsgHandler, am.MessageFilter{
+	if _, err = subscriber.Subscribe(orderingpb.OrderAggregateChannel, handlers, am.MessageFilter{
 		orderingpb.OrderCreatedEvent,
 		orderingpb.OrderReadiedEvent,
 		orderingpb.OrderCanceledEvent,
@@ -51,7 +53,7 @@ func RegisterIntegrationEventHandlers(subscriber am.EventSubscriber, handlers dd
 		return
 	}
 
-	if _, err = subscriber.Subscribe(storespb.ProductAggregateChannel, evtMsgHandler, am.MessageFilter{
+	if _, err = subscriber.Subscribe(storespb.ProductAggregateChannel, handlers, am.MessageFilter{
 		storespb.ProductAddedEvent,
 		storespb.ProductRebrandedEvent,
 		storespb.ProductRemovedEvent,
@@ -59,7 +61,7 @@ func RegisterIntegrationEventHandlers(subscriber am.EventSubscriber, handlers dd
 		return
 	}
 
-	if _, err = subscriber.Subscribe(storespb.StoreAggregateChannel, evtMsgHandler, am.MessageFilter{
+	if _, err = subscriber.Subscribe(storespb.StoreAggregateChannel, handlers, am.MessageFilter{
 		storespb.StoreCreatedEvent,
 		storespb.StoreRebrandedEvent,
 	}, am.GroupName("search-stores")); err != nil {
@@ -69,7 +71,24 @@ func RegisterIntegrationEventHandlers(subscriber am.EventSubscriber, handlers dd
 	return
 }
 
-func (h integrationHandlers[T]) HandleEvent(ctx context.Context, event T) error {
+func (h integrationHandlers[T]) HandleEvent(ctx context.Context, event T) (err error) {
+	span := trace.SpanFromContext(ctx)
+	defer func(started time.Time) {
+		if err != nil {
+			span.AddEvent(
+				"Encountered an error handling integration event",
+				trace.WithAttributes(errorsotel.ErrAttrs(err)...),
+			)
+		}
+		span.AddEvent("Handled integration event", trace.WithAttributes(
+			attribute.Int64("TookMS", time.Since(started).Milliseconds()),
+		))
+	}(time.Now())
+
+	span.AddEvent("Handling integration event", trace.WithAttributes(
+		attribute.String("Event", event.EventName()),
+	))
+
 	switch event.EventName() {
 	case customerspb.CustomerRegisteredEvent:
 		return h.onCustomerRegistered(ctx, event)

@@ -2,9 +2,15 @@ package handlers
 
 import (
 	"context"
+	"time"
+
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 
 	"eda-in-golang/internal/ddd"
 	"eda-in-golang/internal/di"
+	"eda-in-golang/internal/errorsotel"
+	"eda-in-golang/stores/internal/constants"
 	"eda-in-golang/stores/internal/domain"
 )
 
@@ -32,17 +38,34 @@ func RegisterCatalogHandlers(subscriber ddd.EventSubscriber[ddd.Event], handlers
 
 func RegisterCatalogHandlersTx(container di.Container) {
 	handlers := ddd.EventHandlerFunc[ddd.Event](func(ctx context.Context, event ddd.Event) error {
-		catalogHandlers := di.Get(ctx, "catalogHandlers").(ddd.EventHandler[ddd.Event])
+		catalogHandlers := di.Get(ctx, constants.CatalogHandlersKey).(ddd.EventHandler[ddd.Event])
 
 		return catalogHandlers.HandleEvent(ctx, event)
 	})
 
-	subscriber := container.Get("domainDispatcher").(*ddd.EventDispatcher[ddd.Event])
+	subscriber := container.Get(constants.DomainDispatcherKey).(*ddd.EventDispatcher[ddd.Event])
 
 	RegisterCatalogHandlers(subscriber, handlers)
 }
 
-func (h catalogHandlers[T]) HandleEvent(ctx context.Context, event T) error {
+func (h catalogHandlers[T]) HandleEvent(ctx context.Context, event T) (err error) {
+	span := trace.SpanFromContext(ctx)
+	defer func(started time.Time) {
+		if err != nil {
+			span.AddEvent(
+				"Encountered an error handling catalog event",
+				trace.WithAttributes(errorsotel.ErrAttrs(err)...),
+			)
+		}
+		span.AddEvent("Handled catalog event", trace.WithAttributes(
+			attribute.Int64("TookMS", time.Since(started).Milliseconds()),
+		))
+	}(time.Now())
+
+	span.AddEvent("Handling catalog event", trace.WithAttributes(
+		attribute.String("Event", event.EventName()),
+	))
+
 	switch event.EventName() {
 	case domain.ProductAddedEvent:
 		return h.onProductAdded(ctx, event)
