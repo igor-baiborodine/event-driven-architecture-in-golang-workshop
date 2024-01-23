@@ -31,7 +31,7 @@ func NewProductCacheRepository(tableName string, db postgres.DB, fallback applic
 }
 
 func (r ProductCacheRepository) Add(ctx context.Context, productID, storeID, name string) error {
-	const query = `INSERT INTO %s (id, store_id, name) VALUES ($1, $2, $3)`
+	const query = `INSERT INTO %s (id, store_id, NAME) VALUES ($1, $2, $3)`
 
 	_, err := r.db.ExecContext(ctx, r.table(query), productID, storeID, name)
 	if err != nil {
@@ -47,7 +47,7 @@ func (r ProductCacheRepository) Add(ctx context.Context, productID, storeID, nam
 }
 
 func (r ProductCacheRepository) Rebrand(ctx context.Context, productID, name string) error {
-	const query = `UPDATE %s SET name = $2 WHERE id = $1`
+	const query = `UPDATE %s SET NAME = $2 WHERE id = $1`
 
 	_, err := r.db.ExecContext(ctx, r.table(query), productID, name)
 
@@ -63,13 +63,13 @@ func (r ProductCacheRepository) Remove(ctx context.Context, productID string) er
 }
 
 func (r ProductCacheRepository) Find(ctx context.Context, productID string) (*models.Product, error) {
-	const query = `SELECT store_id, name, price FROM %s WHERE id = $1 LIMIT 1`
+	const query = `SELECT store_id, name FROM %s WHERE id = $1 LIMIT 1`
 
 	product := &models.Product{
 		ID: productID,
 	}
 
-	err := r.db.QueryRowContext(ctx, r.table(query), productID).Scan(&product.Name)
+	err := r.db.QueryRowContext(ctx, r.table(query), productID).Scan(&product.StoreID, &product.Name)
 	if err != nil {
 		if !errors.Is(err, sql.ErrNoRows) {
 			return nil, errors.Wrap(err, "scanning product")

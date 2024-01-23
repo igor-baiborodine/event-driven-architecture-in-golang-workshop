@@ -26,7 +26,7 @@ func NewMallRepository(tableName string, db postgres.DB) MallRepository {
 }
 
 func (r MallRepository) AddStore(ctx context.Context, storeID, name, location string) error {
-	const query = "INSERT INTO %s (id, name, location, participating) VALUES ($1, $2, $3, $4)"
+	const query = "INSERT INTO %s (id, NAME, location, participating) VALUES ($1, $2, $3, $4)"
 
 	_, err := r.db.ExecContext(ctx, r.table(query), storeID, name, location, false)
 
@@ -42,7 +42,7 @@ func (r MallRepository) SetStoreParticipation(ctx context.Context, storeID strin
 }
 
 func (r MallRepository) RenameStore(ctx context.Context, storeID, name string) error {
-	const query = "UPDATE %s SET name = $2 WHERE id = $1"
+	const query = "UPDATE %s SET NAME = $2 WHERE id = $1"
 
 	_, err := r.db.ExecContext(ctx, r.table(query), storeID, name)
 
@@ -97,7 +97,7 @@ func (r MallRepository) All(ctx context.Context) (stores []*domain.MallStore, er
 }
 
 func (r MallRepository) AllParticipating(ctx context.Context) (stores []*domain.MallStore, err error) {
-	const query = "SELECT id, name, location, participating FROM %s WHERE participating is true"
+	const query = "SELECT id, name, location, participating FROM %s WHERE participating IS TRUE"
 
 	var rows *sql.Rows
 	rows, err = r.db.QueryContext(ctx, r.table(query))

@@ -8,18 +8,18 @@ import (
 )
 
 const messageLimit = 50
-const pollingInterval = 500 * time.Millisecond
+const pollingInterval = 333 * time.Millisecond
 
 type OutboxProcessor interface {
 	Start(ctx context.Context) error
 }
 
 type outboxProcessor struct {
-	publisher am.RawMessagePublisher
+	publisher am.MessagePublisher
 	store     OutboxStore
 }
 
-func NewOutboxProcessor(publisher am.RawMessagePublisher, store OutboxStore) OutboxProcessor {
+func NewOutboxProcessor(publisher am.MessagePublisher, store OutboxStore) OutboxProcessor {
 	return outboxProcessor{
 		publisher: publisher,
 		store:     store,

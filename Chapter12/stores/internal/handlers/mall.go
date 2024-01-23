@@ -2,9 +2,15 @@ package handlers
 
 import (
 	"context"
+	"time"
+
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/trace"
 
 	"eda-in-golang/internal/ddd"
 	"eda-in-golang/internal/di"
+	"eda-in-golang/internal/errorsotel"
+	"eda-in-golang/stores/internal/constants"
 	"eda-in-golang/stores/internal/domain"
 )
 
@@ -31,17 +37,34 @@ func RegisterMallHandlers(subscriber ddd.EventSubscriber[ddd.Event], handlers dd
 
 func RegisterMallHandlersTx(container di.Container) {
 	handlers := ddd.EventHandlerFunc[ddd.Event](func(ctx context.Context, event ddd.Event) error {
-		mallHandlers := di.Get(ctx, "mallHandlers").(ddd.EventHandler[ddd.Event])
+		mallHandlers := di.Get(ctx, constants.MallHandlersKey).(ddd.EventHandler[ddd.Event])
 
 		return mallHandlers.HandleEvent(ctx, event)
 	})
 
-	subscriber := container.Get("domainDispatcher").(*ddd.EventDispatcher[ddd.Event])
+	subscriber := container.Get(constants.DomainDispatcherKey).(*ddd.EventDispatcher[ddd.Event])
 
 	RegisterMallHandlers(subscriber, handlers)
 }
 
-func (h mallHandlers[T]) HandleEvent(ctx context.Context, event T) error {
+func (h mallHandlers[T]) HandleEvent(ctx context.Context, event T) (err error) {
+	span := trace.SpanFromContext(ctx)
+	defer func(started time.Time) {
+		if err != nil {
+			span.AddEvent(
+				"Encountered an error handling mall event",
+				trace.WithAttributes(errorsotel.ErrAttrs(err)...),
+			)
+		}
+		span.AddEvent("Handled mall event", trace.WithAttributes(
+			attribute.Int64("TookMS", time.Since(started).Milliseconds()),
+		))
+	}(time.Now())
+
+	span.AddEvent("Handling mall event", trace.WithAttributes(
+		attribute.String("Event", event.EventName()),
+	))
+
 	switch event.EventName() {
 	case domain.StoreCreatedEvent:
 		return h.onStoreCreated(ctx, event)

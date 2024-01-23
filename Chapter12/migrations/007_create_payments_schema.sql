@@ -1,7 +1,8 @@
 -- +goose Up
 CREATE SCHEMA payments;
 
-SET SEARCH_PATH TO payments, public;
+SET
+SEARCH_PATH TO payments, PUBLIC;
 
 CREATE TABLE payments (
   id          text          NOT NULL,
@@ -15,13 +16,11 @@ CREATE TABLE payments (
 CREATE TRIGGER created_at_payments_trgr
   BEFORE UPDATE
   ON payments
-  FOR EACH ROW
-EXECUTE PROCEDURE created_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE created_at_trigger();
 CREATE TRIGGER updated_at_payments_trgr
   BEFORE UPDATE
   ON payments
-  FOR EACH ROW
-EXECUTE PROCEDURE updated_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE updated_at_trigger();
 
 CREATE TABLE invoices (
   id         text          NOT NULL,
@@ -38,28 +37,30 @@ CREATE INDEX invoices_order_id_idx ON invoices (order_id);
 CREATE TRIGGER created_at_invoices_trgr
   BEFORE UPDATE
   ON invoices
-  FOR EACH ROW
-EXECUTE PROCEDURE created_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE created_at_trigger();
 CREATE TRIGGER updated_at_invoices_trgr
   BEFORE UPDATE
   ON invoices
-  FOR EACH ROW
-EXECUTE PROCEDURE updated_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE updated_at_trigger();
 
 CREATE TABLE inbox (
   id          text        NOT NULL,
   name        text        NOT NULL,
   subject     text        NOT NULL,
   data        bytea       NOT NULL,
+  metadata    bytea       NOT NULL,
+  sent_at     timestamptz NOT NULL,
   received_at timestamptz NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE outbox (
-  id           text  NOT NULL,
-  name         text  NOT NULL,
-  subject      text  NOT NULL,
-  data         bytea NOT NULL,
+  id           text        NOT NULL,
+  name         text        NOT NULL,
+  subject      text        NOT NULL,
+  data         bytea       NOT NULL,
+  metadata     bytea       NOT NULL,
+  sent_at      timestamptz NOT NULL,
   published_at timestamptz,
   PRIMARY KEY (id)
 );

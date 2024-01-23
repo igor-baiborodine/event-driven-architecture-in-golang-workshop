@@ -1,7 +1,8 @@
 -- +goose Up
 CREATE SCHEMA depot;
 
-SET SEARCH_PATH TO depot, public;
+SET
+SEARCH_PATH TO depot, PUBLIC;
 
 CREATE TABLE stores_cache (
   id         text        NOT NULL,
@@ -15,13 +16,11 @@ CREATE TABLE stores_cache (
 CREATE TRIGGER created_at_stores_trgr
   BEFORE UPDATE
   ON stores_cache
-  FOR EACH ROW
-EXECUTE PROCEDURE created_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE created_at_trigger();
 CREATE TRIGGER updated_at_stores_trgr
   BEFORE UPDATE
   ON stores_cache
-  FOR EACH ROW
-EXECUTE PROCEDURE updated_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE updated_at_trigger();
 
 CREATE TABLE products_cache (
   id         text        NOT NULL,
@@ -35,13 +34,11 @@ CREATE TABLE products_cache (
 CREATE TRIGGER created_at_products_trgr
   BEFORE UPDATE
   ON products_cache
-  FOR EACH ROW
-EXECUTE PROCEDURE created_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE created_at_trigger();
 CREATE TRIGGER updated_at_products_trgr
   BEFORE UPDATE
   ON products_cache
-  FOR EACH ROW
-EXECUTE PROCEDURE updated_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE updated_at_trigger();
 
 CREATE TABLE shopping_lists (
   id              text        NOT NULL,
@@ -60,28 +57,30 @@ CREATE INDEX shopping_lists_availability_idx ON shopping_lists (status, created_
 CREATE TRIGGER created_at_shopping_lists_trgr
   BEFORE UPDATE
   ON shopping_lists
-  FOR EACH ROW
-EXECUTE PROCEDURE created_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE created_at_trigger();
 CREATE TRIGGER updated_at_shopping_lists_trgr
   BEFORE UPDATE
   ON shopping_lists
-  FOR EACH ROW
-EXECUTE PROCEDURE updated_at_trigger();
+  FOR EACH ROW EXECUTE PROCEDURE updated_at_trigger();
 
 CREATE TABLE inbox (
   id          text        NOT NULL,
   name        text        NOT NULL,
   subject     text        NOT NULL,
   data        bytea       NOT NULL,
+  metadata    bytea       NOT NULL,
+  sent_at     timestamptz NOT NULL,
   received_at timestamptz NOT NULL,
   PRIMARY KEY (id)
 );
 
 CREATE TABLE outbox (
-  id           text  NOT NULL,
-  name         text  NOT NULL,
-  subject      text  NOT NULL,
-  data         bytea NOT NULL,
+  id           text        NOT NULL,
+  name         text        NOT NULL,
+  subject      text        NOT NULL,
+  data         bytea       NOT NULL,
+  metadata     bytea       NOT NULL,
+  sent_at      timestamptz NOT NULL,
   published_at timestamptz,
   PRIMARY KEY (id)
 );
