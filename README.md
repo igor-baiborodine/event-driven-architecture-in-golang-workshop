@@ -18,7 +18,7 @@ but is updated and executed against the latest versions of dependent Go packages
 - [X] 9.[Transactional Messaging](/Chapter09) ([`40e5d9f`](https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/commit/40e5d9ff754b486b642c2706d12db92c7e6ac261))
 - [X] 10.[Testing](/Chapter10) ([`3973084`](https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/commit/3973084502de3f2e2c0817220b5ae33f985cd5aa))
 - [X] 11.[Deploying Applications to the Cloud](/Chapter11) ([`c077496`](https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/commit/c07749682aebcaf52c39f6bb41fd62570d7bf900))
-- [ ] 12.Monitoring and Observability
+- [ ] 12.[Monitoring and Observability](/Chapter12)
 
 <a href="https://www.packtpub.com/product/event-driven-architecture-in-golang/9781803238012?utm_source=github&utm_medium=repository&utm_campaign=9781803238012"><img src="https://static.packt-cdn.com/products/9781803238012/cover/smaller" alt="" height="256px" align="right"></a>
 
