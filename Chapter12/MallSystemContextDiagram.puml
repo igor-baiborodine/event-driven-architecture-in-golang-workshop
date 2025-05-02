@@ -1,0 +1,21 @@
+@startuml "Mall System - System Context"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title "Mall System - System Context Diagram"
+
+Person(customer, "Customer", "A person who wants to rent a store in the mall")
+Person(admin, "Mall Administrator", "A person who manages the mall operations")
+
+System(mallSystem, "Mall Management System", "Allows customers to browse stores, make rental applications, and administrators to manage the mall")
+
+System_Ext(notificationSystem, "Notification System", "Sends email and SMS notifications")
+System_Ext(paymentSystem, "Payment System", "Processes payments for store rentals")
+
+Rel(customer, mallSystem, "Uses", "HTTPS")
+Rel(admin, mallSystem, "Manages", "HTTPS")
+Rel(mallSystem, notificationSystem, "Sends notifications via", "HTTPS")
+Rel(mallSystem, paymentSystem, "Processes payments via", "HTTPS")
+
+@enduml
