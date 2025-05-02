@@ -1,0 +1,26 @@
+@startuml "Mallbots - System Context Diagram"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title "Mallbots - System Context Diagram"
+
+Person(customer, "Customer", "A person who uses the mall system to browse stores and make purchases")
+Person(storeOwner, "Store Owner", "Manages store inventory and processes orders")
+Person(mallAdmin, "Mall Administrator", "Manages the mall operations and stores")
+
+System(mallbotsSystem, "Mallbots System", "Allows customers to browse stores and make purchases, store owners to manage inventory, and administrators to manage mall operations")
+
+System_Ext(paymentGateway, "Payment Gateway", "External payment processing system")
+System_Ext(notificationProvider, "Notification Provider", "External notification service for emails and SMS")
+System_Ext(searchEngine, "Search Engine", "External search service")
+
+Rel(customer, mallbotsSystem, "Uses", "HTTPS")
+Rel(storeOwner, mallbotsSystem, "Manages store and inventory", "HTTPS")
+Rel(mallAdmin, mallbotsSystem, "Administers", "HTTPS")
+
+Rel(mallbotsSystem, paymentGateway, "Processes payments via", "HTTPS/API")
+Rel(mallbotsSystem, notificationProvider, "Sends notifications via", "HTTPS/API")
+Rel(mallbotsSystem, searchEngine, "Indexes and searches via", "HTTPS/API")
+
+@enduml

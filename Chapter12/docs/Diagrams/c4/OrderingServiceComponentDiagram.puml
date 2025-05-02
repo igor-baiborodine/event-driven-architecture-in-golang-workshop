@@ -1,0 +1,56 @@
+@startuml "Ordering Service - Component Diagram"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title "Ordering Service - Component Diagram"
+
+Container(apiGateway, "API Gateway", "Go", "Routes API requests to microservices")
+Container(basketsService, "Baskets Service", "Go", "Manages customer shopping baskets")
+Container(customersService, "Customers Service", "Go", "Manages customer accounts")
+Container(paymentsService, "Payments Service", "Go", "Processes payments")
+Container(messageBroker, "Message Broker", "RabbitMQ/NATS", "Event message broker")
+ContainerDb(orderingDB, "Ordering Database", "PostgreSQL", "Stores order data")
+
+Container_Boundary(orderingService, "Ordering Service") {
+    Component(httpHandler, "HTTP Handler", "Go, HTTP/gRPC", "Handles HTTP/gRPC requests for order management")
+    Component(commandHandler, "Command Handler", "Go", "Processes commands like CreateOrder, CancelOrder")
+    Component(eventHandler, "Event Handler", "Go", "Handles domain events")
+
+    Component(orderAggregate, "Order Aggregate", "Go, Domain Model", "Order business logic and state")
+    Component(orderRepository, "Order Repository", "Go, Repository Pattern", "Persists and retrieves order data")
+
+    Component(eventPublisher, "Event Publisher", "Go", "Publishes domain events")
+    Component(eventStore, "Event Store", "Go", "Stores and retrieves domain events")
+
+    Component(basketConsumer, "Basket Consumer", "Go", "Consumes basket events")
+    Component(paymentConsumer, "Payment Consumer", "Go", "Consumes payment events")
+
+    Component(orderApplication, "Order Application", "Go", "Application layer service that orchestrates domain operations")
+}
+
+Rel(apiGateway, httpHandler, "Routes order requests to", "HTTP/gRPC")
+Rel(httpHandler, commandHandler, "Forwards commands to")
+Rel(commandHandler, orderApplication, "Uses")
+Rel(orderApplication, orderAggregate, "Uses")
+Rel(orderAggregate, orderRepository, "Uses")
+Rel(orderRepository, orderingDB, "Reads/Writes", "SQL/TCP")
+Rel(orderAggregate, eventPublisher, "Publishes events to")
+Rel(eventPublisher, eventStore, "Stores events in")
+Rel(eventStore, orderingDB, "Reads/Writes events", "SQL/TCP")
+Rel(eventPublisher, messageBroker, "Publishes events to", "AMQP/NATS")
+
+Rel(messageBroker, eventHandler, "Delivers events to", "AMQP/NATS")
+Rel(eventHandler, orderApplication, "Updates via")
+
+Rel(basketsService, messageBroker, "Publishes basket events to", "AMQP/NATS")
+Rel(messageBroker, basketConsumer, "Delivers basket events to", "AMQP/NATS")
+Rel(basketConsumer, orderApplication, "Creates orders via")
+
+Rel(paymentsService, messageBroker, "Publishes payment events to", "AMQP/NATS")
+Rel(messageBroker, paymentConsumer, "Delivers payment events to", "AMQP/NATS")
+Rel(paymentConsumer, orderApplication, "Updates orders via")
+
+Rel(orderingService, customersService, "Validates customers via", "HTTP/gRPC")
+
+@enduml

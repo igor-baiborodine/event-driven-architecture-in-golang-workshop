@@ -1,0 +1,75 @@
+@startuml "Mallbots - Container Diagram"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+title "Mallbots - Container Diagram"
+
+Person(customer, "Customer", "A person who uses the mall system to browse stores and make purchases")
+Person(storeOwner, "Store Owner", "Manages store inventory and processes orders")
+Person(mallAdmin, "Mall Administrator", "Manages the mall operations and stores")
+
+System_Boundary(mallbotsSystem, "Mallbots System") {
+    Container(apiGateway, "API Gateway", "Go", "Routes API requests to appropriate microservices")
+
+    Container(basketsService, "Baskets Service", "Go", "Manages customer shopping baskets")
+    Container(customersService, "Customers Service", "Go", "Manages customer accounts and profiles")
+    Container(depotService, "Depot Service", "Go", "Manages inventory and warehousing")
+    Container(notificationsService, "Notifications Service", "Go", "Handles system notifications")
+    Container(orderingService, "Ordering Service", "Go", "Processes customer orders")
+    Container(paymentsService, "Payments Service", "Go", "Handles payment processing")
+    Container(searchService, "Search Service", "Go", "Provides search functionality")
+    Container(storesService, "Stores Service", "Go", "Manages store information")
+
+    ContainerDb(basketsDB, "Baskets Database", "PostgreSQL", "Stores basket data")
+    ContainerDb(customersDB, "Customers Database", "PostgreSQL", "Stores customer data")
+    ContainerDb(depotDB, "Depot Database", "PostgreSQL", "Stores inventory data")
+    ContainerDb(notificationsDB, "Notifications Database", "PostgreSQL", "Stores notification data")
+    ContainerDb(orderingDB, "Ordering Database", "PostgreSQL", "Stores order data")
+    ContainerDb(paymentsDB, "Payments Database", "PostgreSQL", "Stores payment data")
+    ContainerDb(searchDB, "Search Database", "PostgreSQL/Elasticsearch", "Stores search indexes")
+    ContainerDb(storesDB, "Stores Database", "PostgreSQL", "Stores information about stores")
+
+    Container(messageBroker, "Message Broker", "RabbitMQ/NATS", "Event message broker for service communication")
+}
+
+System_Ext(paymentGateway, "Payment Gateway", "External payment processing system")
+System_Ext(notificationProvider, "Notification Provider", "External notification service for emails and SMS")
+System_Ext(searchEngine, "Search Engine", "External search service")
+
+Rel(customer, apiGateway, "Uses", "HTTPS/JSON")
+Rel(storeOwner, apiGateway, "Manages store and inventory", "HTTPS/JSON")
+Rel(mallAdmin, apiGateway, "Administers", "HTTPS/JSON")
+
+Rel(apiGateway, basketsService, "Routes requests to", "HTTP/gRPC")
+Rel(apiGateway, customersService, "Routes requests to", "HTTP/gRPC")
+Rel(apiGateway, depotService, "Routes requests to", "HTTP/gRPC")
+Rel(apiGateway, notificationsService, "Routes requests to", "HTTP/gRPC")
+Rel(apiGateway, orderingService, "Routes requests to", "HTTP/gRPC")
+Rel(apiGateway, paymentsService, "Routes requests to", "HTTP/gRPC")
+Rel(apiGateway, searchService, "Routes requests to", "HTTP/gRPC")
+Rel(apiGateway, storesService, "Routes requests to", "HTTP/gRPC")
+
+Rel(basketsService, basketsDB, "Reads/Writes", "SQL/TCP")
+Rel(customersService, customersDB, "Reads/Writes", "SQL/TCP")
+Rel(depotService, depotDB, "Reads/Writes", "SQL/TCP")
+Rel(notificationsService, notificationsDB, "Reads/Writes", "SQL/TCP")
+Rel(orderingService, orderingDB, "Reads/Writes", "SQL/TCP")
+Rel(paymentsService, paymentsDB, "Reads/Writes", "SQL/TCP")
+Rel(searchService, searchDB, "Reads/Writes", "SQL/TCP")
+Rel(storesService, storesDB, "Reads/Writes", "SQL/TCP")
+
+Rel(basketsService, messageBroker, "Publishes/Subscribes to events", "AMQP/NATS")
+Rel(customersService, messageBroker, "Publishes/Subscribes to events", "AMQP/NATS")
+Rel(depotService, messageBroker, "Publishes/Subscribes to events", "AMQP/NATS")
+Rel(notificationsService, messageBroker, "Publishes/Subscribes to events", "AMQP/NATS")
+Rel(orderingService, messageBroker, "Publishes/Subscribes to events", "AMQP/NATS")
+Rel(paymentsService, messageBroker, "Publishes/Subscribes to events", "AMQP/NATS")
+Rel(searchService, messageBroker, "Publishes/Subscribes to events", "AMQP/NATS")
+Rel(storesService, messageBroker, "Publishes/Subscribes to events", "AMQP/NATS")
+
+Rel(paymentsService, paymentGateway, "Processes payments via", "HTTPS/API")
+Rel(notificationsService, notificationProvider, "Sends notifications via", "HTTPS/API")
+Rel(searchService, searchEngine, "Indexes and searches via", "HTTPS/API")
+
+@enduml

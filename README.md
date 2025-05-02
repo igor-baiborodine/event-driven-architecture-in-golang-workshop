@@ -35,23 +35,23 @@ This is the code repository for [Event-Driven Architecture in Golang](https://ww
 The diagrams below are based on Chapter 12 content.
 
 <details>
-<summary>Mall System Context</summary>
+<summary>Mallbots System Context</summary>
 
-![Example Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/blob/main/Chapter12/docs/Diagrams/c4/MallSystemContextDiagram.puml)
-
-</details>
-
-<details>
-<summary>Mall System Containers</summary>
-
-![Example Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/blob/main/Chapter12/docs/Diagrams/c4/MallSystemContainerDiagram.puml)
+![Mall System Context Diagram](/Chapter12/docs/Diagrams/c4/mallbots-system-context-diagram.png)
 
 </details>
 
 <details>
-<summary>Mall System Booking Service Component</summary>
+<summary>Mallbots Containers</summary>
 
-![Example Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/blob/main/Chapter12/docs/Diagrams/c4/BookingServiceComponentDiagram.puml)
+![Example Diagram](/Chapter12/docs/Diagrams/c4/mallbots-container-diagram.png)
+
+</details>
+
+<details>
+<summary>Ordering Service Component</summary>
+
+![Example Diagram](/Chapter12/docs/Diagrams/c4/ordering-service-component-diagram.png))
 
 </details>
 
