@@ -1,0 +1,34 @@
+@startuml "Booking Service - Components"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title "Booking Service - Component Diagram"
+
+Container(api, "API Gateway", "Go, Chi Router", "Handles HTTP requests and routes them to appropriate services")
+ContainerDb(bookingDB, "Booking Database", "PostgreSQL", "Stores booking information")
+Container(messageBroker, "Message Broker", "RabbitMQ/NATS", "Enables event-driven communication between services")
+
+Container_Boundary(bookingService, "Booking Service") {
+    Component(httpHandler, "HTTP Handler", "Go, HTTP", "Handles HTTP requests for bookings")
+    Component(commandHandler, "Command Handler", "Go", "Processes booking commands")
+    Component(eventHandler, "Event Handler", "Go", "Processes domain events")
+    Component(bookingAggregate, "Booking Aggregate", "Go", "Booking business logic and state")
+    Component(bookingRepository, "Booking Repository", "Go", "Persists and retrieves booking data")
+    Component(eventPublisher, "Event Publisher", "Go", "Publishes domain events to the message broker")
+    Component(eventStore, "Event Store", "Go", "Stores domain events for the booking service")
+}
+
+Rel(api, httpHandler, "Sends requests to", "HTTP/gRPC")
+Rel(httpHandler, commandHandler, "Forwards commands to")
+Rel(commandHandler, bookingAggregate, "Creates/Updates")
+Rel(bookingAggregate, eventPublisher, "Publishes events via")
+Rel(eventPublisher, messageBroker, "Publishes events to", "AMQP/NATS")
+Rel(bookingRepository, bookingDB, "Reads/Writes", "SQL")
+Rel(bookingAggregate, bookingRepository, "Uses")
+Rel(eventHandler, messageBroker, "Subscribes to events from", "AMQP/NATS")
+Rel(eventHandler, bookingAggregate, "Updates")
+Rel(eventPublisher, eventStore, "Stores events in")
+Rel(eventStore, bookingDB, "Persists events to", "SQL")
+
+@enduml

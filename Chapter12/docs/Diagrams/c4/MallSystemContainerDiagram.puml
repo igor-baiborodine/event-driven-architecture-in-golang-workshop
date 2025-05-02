@@ -1,0 +1,51 @@
+@startuml "Mall System - Containers"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+title "Mall System - Container Diagram"
+
+Person(customer, "Customer", "A person who wants to rent a store in the mall")
+Person(admin, "Mall Administrator", "A person who manages the mall operations")
+
+System_Boundary(mallSystem, "Mall Management System") {
+    Container(api, "API Gateway", "Go, Chi Router", "Handles HTTP requests and routes them to appropriate services")
+    
+    Container(storesService, "Stores Service", "Go", "Manages store information, availability, and rental status")
+    Container(mallService, "Mall Service", "Go", "Manages mall information and configurations")
+    Container(bookingService, "Booking Service", "Go", "Handles store booking and reservation process")
+    Container(paymentService, "Payment Service", "Go", "Manages payments for store rentals")
+    Container(notificationService, "Notification Service", "Go", "Sends notifications to customers and administrators")
+    
+    ContainerDb(storesDB, "Stores Database", "PostgreSQL", "Stores store information and availability")
+    ContainerDb(mallDB, "Mall Database", "PostgreSQL", "Stores mall information and configurations")
+    ContainerDb(bookingDB, "Booking Database", "PostgreSQL", "Stores booking information")
+    
+    Container(messageBroker, "Message Broker", "RabbitMQ/NATS", "Enables event-driven communication between services")
+}
+
+System_Ext(externalNotification, "Notification System", "Sends email and SMS notifications")
+System_Ext(externalPayment, "Payment System", "Processes payments for store rentals")
+
+Rel(customer, api, "Uses", "HTTPS")
+Rel(admin, api, "Manages", "HTTPS")
+
+Rel(api, storesService, "Uses", "HTTP/gRPC")
+Rel(api, mallService, "Uses", "HTTP/gRPC")
+Rel(api, bookingService, "Uses", "HTTP/gRPC")
+Rel(api, paymentService, "Uses", "HTTP/gRPC")
+
+Rel(storesService, storesDB, "Reads/Writes", "SQL")
+Rel(mallService, mallDB, "Reads/Writes", "SQL")
+Rel(bookingService, bookingDB, "Reads/Writes", "SQL")
+
+Rel(storesService, messageBroker, "Publishes/Subscribes", "AMQP/NATS")
+Rel(mallService, messageBroker, "Publishes/Subscribes", "AMQP/NATS")
+Rel(bookingService, messageBroker, "Publishes/Subscribes", "AMQP/NATS")
+Rel(paymentService, messageBroker, "Publishes/Subscribes", "AMQP/NATS")
+Rel(notificationService, messageBroker, "Subscribes", "AMQP/NATS")
+
+Rel(paymentService, externalPayment, "Uses", "HTTPS")
+Rel(notificationService, externalNotification, "Uses", "HTTPS")
+
+@enduml
