@@ -6,7 +6,8 @@
 This workshop covers material from
 the ["Event-Driven Architecture in Golang: Building complex systems with asynchronicity and eventual consistency"](https://www.amazon.ca/dp/1803238011/)
 book. It contains the same source code as in the original [repository](https://github.com/PacktPublishing/Event-Driven-Architecture-in-Golang)
-but is updated and executed against the latest versions of dependent Go packages.
+but is updated and executed against the latest versions of dependent Go packages. Also, some C4
+diagrams were added.
 
 **Table of Contents**
 
@@ -28,6 +29,31 @@ but is updated and executed against the latest versions of dependent Go packages
 This is the code repository for [Event-Driven Architecture in Golang](https://www.packtpub.com/product/event-driven-architecture-in-golang/9781803238012?utm_source=github&utm_medium=repository&utm_campaign=9781803238012), published by Packt.
 
 **Building complex systems with asynchronicity and eventual consistency**
+
+## C4 Diagrams
+
+The diagrams below are based on Chapter 12 content.
+
+<details>
+<summary>Mall System Context</summary>
+
+![Example Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/blob/main/Chapter12/docs/Diagrams/c4/MallSystemContextDiagram.puml)
+
+</details>
+
+<details>
+<summary>Mall System Containers</summary>
+
+![Example Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/blob/main/Chapter12/docs/Diagrams/c4/MallSystemContainerDiagram.puml)
+
+</details>
+
+<details>
+<summary>Mall System Booking Service Component</summary>
+
+![Example Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/igor-baiborodine/event-driven-architecture-in-golang-workshop/blob/main/Chapter12/docs/Diagrams/c4/BookingServiceComponentDiagram.puml)
+
+</details>
 
 ## What is this book about?
 Event-Driven Architecture in Golang is an approach used to develop applications that shares state changes asynchronously, internally, and externally using messages. EDA applications are better suited at handling situations that need to scale up quickly and the chances of individual component failures are less likely to bring your system crashing down. 
@@ -60,10 +86,10 @@ This hands-on book is for intermediate-level software architects, or senior soft
 With the following software and hardware list you can run all code files present in the book (Chapter 1-12).
 ### Software and Hardware List
 | Chapter | Software required | OS required |
-| -------- | ------------------------------------ | ----------------------------------- |
-| 1-12 | Go 1.18+ | Windows, Mac OS X, and Linux (Any) |
-| 1-12 | Docker 20.10.x | Windows, Mac OS X, and Linux (Any) |
-| 1-12 | NATS 2.4 | Windows, Mac OS X, and Linux (Any) |
+| -------- |-------------------| ----------------------------------- |
+| 1-12 | Go 1.21+          | Windows, Mac OS X, and Linux (Any) |
+| 1-12 | Docker 20.10.x    | Windows, Mac OS X, and Linux (Any) |
+| 1-12 | NATS 2.4          | Windows, Mac OS X, and Linux (Any) |
 
 
 We also provide a PDF file that has color images of the screenshots/diagrams used in this book. [Click here to download it](https://packt.link/qgf1O).
